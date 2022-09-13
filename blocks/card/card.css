@@ -1,0 +1,10 @@
+.card{
+  background-color: #fff;
+  max-width: 280px;
+  border-radius: 3%;
+  overflow: hidden;
+}
+
+.card:not(:first-of-type) {
+  margin-top: 20px;
+}

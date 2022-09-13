@@ -1,0 +1,6 @@
+.place-grid {
+  padding-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
