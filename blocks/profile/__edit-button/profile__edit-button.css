@@ -6,4 +6,18 @@
   background-position: center;
   background-repeat: no-repeat;
   margin-left: 10px;
+  transition: linear 0.3s;
+}
+
+.profile__edit-button:hover {
+  cursor: pointer;
+  opacity: 50%;
+}
+
+@media screen and (min-width:1024px) {
+  .profile__edit-button {
+    padding: 11px 11px;
+    background-image: url(../../../images/big\ pen.svg);
+    margin-left: 18px;
+  }
 }

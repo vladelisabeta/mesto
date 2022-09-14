@@ -4,3 +4,20 @@
   flex-direction: column;
   align-items: center;
 }
+
+@media screen and (min-width: 768px) and (max-width:1023px) {
+  .place-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 20px;
+    justify-items: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .place-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20px;
+  }
+}

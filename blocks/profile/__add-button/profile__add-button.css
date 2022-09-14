@@ -6,4 +6,16 @@
   background-image: url(../../../images/plus.svg);
   background-position: center;
   background-repeat: no-repeat;
+  transition: linear 0.3s;
+}
+
+.profile__add-button:hover {
+  opacity: 50%;
+  cursor: pointer;
+}
+
+@media screen and (min-width:1024px) {
+  .profile__add-button {
+    padding: 22px 72px;
+  }
 }

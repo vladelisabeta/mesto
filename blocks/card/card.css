@@ -5,6 +5,12 @@
   overflow: hidden;
 }
 
-.card:not(:first-of-type) {
+/* .card:not(:first-of-type) {
   margin-top: 20px;
+} */
+
+@media screen and (min-width: 320px) and (max-width:767px) {
+  .card:not(:first-of-type) {
+    margin-top: 20px;
+  }
 }
