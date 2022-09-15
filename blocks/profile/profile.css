@@ -1,6 +1,7 @@
 .profile {
   display: grid;
   justify-items: center;
+  padding-top: 42px;
 }
 
 @media screen and (min-width:1024px) {
@@ -10,5 +11,6 @@
     align-items: baseline;
     justify-content: start;
     justify-items: normal;
+    padding-top: 40px;
   }
 }

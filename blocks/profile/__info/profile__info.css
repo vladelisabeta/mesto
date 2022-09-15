@@ -1,4 +1,4 @@
-.profile__info{
+.profile__info {
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (min-width:1024px) {
-  .profile__info{
+  .profile__info {
     font-size: 18px;
     grid-column-start: 2;
     grid-row-start: 4;

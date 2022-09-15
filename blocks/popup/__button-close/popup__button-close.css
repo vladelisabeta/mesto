@@ -1,0 +1,22 @@
+.popup__button-close {
+  background-color: #000;
+  background-image: url(../../../images/cross_320.svg);
+  padding: 10px 10px;
+  margin-bottom: 16px;
+  background-size: cover;
+  transition: linear 0.3s;
+  background-repeat: no-repeat;
+}
+
+.popup__button-close:hover {
+  opacity: 60%;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__button-close {
+    padding: 14px 14px;
+    background-image: url(../../../images/big_cross.svg);
+    margin-bottom: 8px;
+  }
+}

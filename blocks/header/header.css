@@ -1,5 +1,6 @@
-header{
+header {
   background-image: url(../../images/Line.svg);
   background: no-repeat;
   background-position: bottom;
+  border-bottom: solid 1px #545454;
 }

@@ -11,13 +11,13 @@
 
 .profile__edit-button:hover {
   cursor: pointer;
-  opacity: 50%;
+  opacity: 60%;
 }
 
 @media screen and (min-width:1024px) {
   .profile__edit-button {
     padding: 11px 11px;
-    background-image: url(../../../images/big\ pen.svg);
+    background-image: url(../../../images/big_pen.svg);
     margin-left: 18px;
   }
 }

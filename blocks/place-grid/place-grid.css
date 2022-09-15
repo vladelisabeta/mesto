@@ -6,7 +6,7 @@
 }
 
 @media screen and (min-width: 768px) and (max-width:1023px) {
-  .place-grid{
+  .place-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 20px;
