@@ -5,3 +5,10 @@
   border-radius: 50%;
   margin-bottom: 26px;
 }
+
+@media screen and (min-width:1024px) {
+  .profile__avatar {
+    margin: 0;
+    grid-row-start: 2;
+  }
+}

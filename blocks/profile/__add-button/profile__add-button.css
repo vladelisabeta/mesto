@@ -17,5 +17,7 @@
 @media screen and (min-width:1024px) {
   .profile__add-button {
     padding: 22px 72px;
+    grid-column-start: -1;
+    grid-row-start: 3;
   }
 }
