@@ -4,7 +4,7 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color: #000;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: flex-end;
 
