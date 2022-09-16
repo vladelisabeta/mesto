@@ -8,5 +8,5 @@ JavaScript
 оформление файловой структуры БЭМ Nested.
 
 ### Ссылка на проект:
-
+https://vladelisabeta.github.io/mesto/
 

@@ -7,4 +7,12 @@
   margin-top: 48px;
   margin-left: 19px;
   padding-bottom: 33px;
+  margin-bottom: 0;
+}
+
+@media screen and (min-width:768px) {
+  .footer__copyright {
+    font-size: 18px;
+    padding-bottom: 56px;
+  }
 }
