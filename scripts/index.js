@@ -47,14 +47,21 @@ function enterInfo() {
   profileName.textContent = nameInput.value;
 }
 
-save.addEventListener('click', {
-  handleEvent: (enterInfo)
-})
-
-// функция для отправки формы
+// функция превент дефалт
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
 }
+
+// это для сохранения формы при отправке
+formElement.addEventListener('submit', {
+  handleEvent: (enterInfo)
+})
+
+
+// это закрывает форму при сохранении
+formElement.addEventListener('submit', {
+  handleEvent: (closePopup)
+})
 
 formElement.addEventListener('submit', formSubmitHandler);
