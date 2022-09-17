@@ -48,7 +48,7 @@ function enterInfo() {
 }
 
 save.addEventListener('click', {
-  handleEvent: (enterInfo);
+  handleEvent: (enterInfo)
 })
 
 // функция для отправки формы
@@ -57,15 +57,4 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
 }
 
-save.addEventListener('click', {
-  handleEvent: (formSubmitHandler);
-  alert('HELLO!');
-})
-
-// function formSubmit() {
-//   formElement.addEventListener('submit', formSubmitHandler);
-// }
-
-// save.addEventListener('click', {
-//   handleEvent: (formSubmit);
-// })
+formElement.addEventListener('submit', formSubmitHandler);
