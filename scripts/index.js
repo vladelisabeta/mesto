@@ -31,15 +31,6 @@ buttonClose.addEventListener('click', {
 // INPUT
 // ПИШЕМ ФУНКЦИЮ, КОТОРАЯ ДОЛЖНА СРАБОТАТЬ КОГДА ПРОИЗОЙДЕТ ДЕЙСТВИЕ
 
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-
-  console.log(jobInput.value); // это работает
-  console.log(nameInput.value); // это тоже работает
-  // jobInput.value.textContent = jobInput.value; // я не знаю, что это. пусть пока будет так.
-}
-
-
 //ЭТО ДАЕТ МНЕ ЗАБРАТЬ ТЕКСТ ИЗ ПРОФИЛЯ В ВВОД
 function editProfile() {
   jobInput.value = profileJob.textContent;
@@ -57,8 +48,24 @@ function enterInfo() {
 }
 
 save.addEventListener('click', {
-  handleEvent: (enterInfo)
+  handleEvent: (enterInfo);
 })
 
+// функция для отправки формы
 
-formElement.addEventListener('submit', formSubmitHandler);
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+}
+
+save.addEventListener('click', {
+  handleEvent: (formSubmitHandler);
+  alert('HELLO!');
+})
+
+// function formSubmit() {
+//   formElement.addEventListener('submit', formSubmitHandler);
+// }
+
+// save.addEventListener('click', {
+//   handleEvent: (formSubmit);
+// })
