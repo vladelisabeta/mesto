@@ -8,15 +8,14 @@ let profileName = document.querySelector('.profile__title');
 let profileJob = document.querySelector('.profile__info');
 let formElement = document.querySelector('.popup__form');
 
-// POPUP OPEN
+// POPUP OPEN и забрать текст из профиля в инпут
 
-function openPopup() {
+function openPopupAndTakeProfileInfo() {
   popup.classList.add('popup_opened');
+  jobInput.value = profileJob.textContent;
+  nameInput.value = profileName.textContent;
 }
 
-edit.addEventListener('click', {
-  handleEvent: (openPopup)
-})
 
 // POPUP CLOSE
 
@@ -24,44 +23,24 @@ function closePopup() {
   popup.classList.remove('popup_opened');
 }
 
+
+// превент дефолт, переписка профиля и закрытие попап
+
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  profileJob.textContent = jobInput.value;
+  profileName.textContent = nameInput.value;
+  closePopup();
+}
+
+
+// слушатели
 buttonClose.addEventListener('click', {
   handleEvent: (closePopup)
 })
 
-// INPUT
-// ПИШЕМ ФУНКЦИЮ, КОТОРАЯ ДОЛЖНА СРАБОТАТЬ КОГДА ПРОИЗОЙДЕТ ДЕЙСТВИЕ
-
-//ЭТО ДАЕТ МНЕ ЗАБРАТЬ ТЕКСТ ИЗ ПРОФИЛЯ В ВВОД
-function editProfile() {
-  jobInput.value = profileJob.textContent;
-  nameInput.value = profileName.textContent;
-}
-
 edit.addEventListener('click', {
-  handleEvent: (editProfile)
-})
-
-// функция для переписывания профиля
-function enterInfo() {
-  profileJob.textContent = jobInput.value;
-  profileName.textContent = nameInput.value;
-}
-
-// функция превент дефалт
-
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-}
-
-// это для сохранения формы при отправке
-formElement.addEventListener('submit', {
-  handleEvent: (enterInfo)
-})
-
-
-// это закрывает форму при сохранении
-formElement.addEventListener('submit', {
-  handleEvent: (closePopup)
+  handleEvent: (openPopupAndTakeProfileInfo)
 })
 
 formElement.addEventListener('submit', formSubmitHandler);
