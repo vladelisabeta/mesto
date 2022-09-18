@@ -11,8 +11,17 @@
   white-space: nowrap;
   overflow: hidden;
   font-family: "Inter", "Arial", sans-serif;
+  max-width: 238px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .popup__input:not(:first-child) {
   margin-top: 22px;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__input {
+    max-width: 358px;
+  }
 }

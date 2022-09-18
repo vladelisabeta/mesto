@@ -1,10 +1,15 @@
 .popup__save {
-  padding: 12px 75px;
+  padding: 13px 80px;
   border-radius: 2%;
   background-color: #000;
   color: #fff;
   margin-top: 45px;
   transition: 0.3s linear;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  font-family: 'Inter';
+  line-height: 114%;
 }
 
 .popup__save:hover {
@@ -14,7 +19,8 @@
 
 @media screen and (min-width: 768px) {
   .popup__save {
-    padding: 14px 135px;
+    padding: 13px 130px;
     margin-top: 48px;
+    font-size: 18px;
   }
 }

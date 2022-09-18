@@ -6,6 +6,7 @@
   background-size: cover;
   transition: linear 0.3s;
   background-repeat: no-repeat;
+  border: none;
 }
 
 .popup__button-close:hover {

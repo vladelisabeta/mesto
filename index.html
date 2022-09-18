@@ -19,10 +19,10 @@
         <img src="./images/kusto.jpg" alt="Аватар профиля" class="profile__avatar">
         <div class="profile__edit-container">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button class="profile__edit-button" type="button"></button>
         </div>
         <p class="profile__info">Исследователь океана</p>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
 
       <section class="place-grid">
@@ -30,7 +30,7 @@
           <img src="./images/leaves.jpg" alt="загруженная картинка пользователя" class="card__image">
           <div class="card__heart-container">
             <h2 class="card__title">Карачаевск</h2>
-            <button class="card__heart"></button>
+            <button class="card__heart" type="button"></button>
           </div>
         </div>
 
@@ -38,7 +38,7 @@
           <img src="./images/handing_leaves.jpg" alt="загруженная картинка пользователя" class="card__image">
           <div class="card__heart-container">
             <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__heart"></button>
+            <button class="card__heart" type="button"></button>
           </div>
         </div>
 
@@ -46,7 +46,7 @@
           <img src="./images/lantern.jpg" alt="загруженная картинка пользователя" class="card__image">
           <div class="card__heart-container">
             <h2 class="card__title">Домбай</h2>
-            <button class="card__heart"></button>
+            <button class="card__heart" type="button"></button>
           </div>
         </div>
 
@@ -54,7 +54,7 @@
           <img src="./images/autumn_tea.jpg" alt="загруженная картинка пользователя" class="card__image">
           <div class="card__heart-container">
             <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__heart"></button>
+            <button class="card__heart" type="button"></button>
           </div>
         </div>
 
@@ -62,7 +62,7 @@
           <img src="./images/railroad.jpg" alt="загруженная картинка пользователя" class="card__image">
           <div class="card__heart-container">
             <h2 class="card__title">Карачаево-Что-то там я не знаю</h2>
-            <button class="card__heart"></button>
+            <button class="card__heart" type="button"></button>
           </div>
         </div>
 
@@ -70,7 +70,7 @@
           <img src="./images/pumpkins.jpg" alt="загруженная картинка пользователя" class="card__image">
           <div class="card__heart-container">
             <h2 class="card__title">Карачаевск</h2>
-            <button class="card__heart"></button>
+            <button class="card__heart" type="button"></button>
           </div>
         </div>
       </section>
@@ -82,17 +82,15 @@
 
     <div class="popup">
       <div class="popup__box">
-        <button class="popup__button-close"></button>
+        <button class="popup__button-close" type="button"></button>
         <div class="popup__container">
-          <p class="popup__text">Редактировать профиль</p>
+          <h3 class="popup__text">Редактировать профиль</h3>
 
-          <form method="get" class="popup__form">
-            <input type="text" name="name" id="name" value="Жак-Ив Кусто" required class="popup__input popup__name">
-            <input type="text" name="info" id="info" value="Исследователь океана" required
-              class="popup__input popup__info">
-            <button class="popup__save" type="submit">
-              <span class="popup__button-text">Сохранить</span>
-            </button>
+          <form class="popup__form" name="about">
+            <input type="text" name="name" id="name" required class="popup__input popup__input_name">
+            <input type="text" name="info" id="info" required
+              class="popup__input popup__input_info">
+            <button class="popup__save" type="submit">Сохранить</button>
           </form>
         </div>
       </div>

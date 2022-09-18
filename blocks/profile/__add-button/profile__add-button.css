@@ -19,5 +19,6 @@
     padding: 22px 72px;
     grid-column-start: -1;
     grid-row-start: 3;
+    background-image: url(../../../images/big_plus.svg);
   }
 }
