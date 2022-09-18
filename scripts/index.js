@@ -10,7 +10,7 @@ let formElement = document.querySelector('.popup__form');
 
 // POPUP OPEN и забрать текст из профиля в инпут
 
-function openPopupAndTakeProfileInfo() {
+function openEditPopup() {
   popup.classList.add('popup_opened');
   jobInput.value = profileJob.textContent;
   nameInput.value = profileName.textContent;
@@ -40,7 +40,7 @@ buttonClose.addEventListener('click', {
 })
 
 edit.addEventListener('click', {
-  handleEvent: (openPopupAndTakeProfileInfo)
+  handleEvent: (openEditPopup)
 })
 
 formElement.addEventListener('submit', formSubmitHandler);
