@@ -9,8 +9,6 @@
   border: none;
   background-color: rgba(0, 0, 0, 0);
   position: absolute;
-  top: right;
-  
 }
 
 .popup__button-close:hover {
