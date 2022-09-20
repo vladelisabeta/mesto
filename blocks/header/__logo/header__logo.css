@@ -15,3 +15,9 @@
     height: 33px;
   }
 }
+
+@media screen and (min-width:1024px) {
+  .header__logo {
+    padding-left: 0;
+  }
+}

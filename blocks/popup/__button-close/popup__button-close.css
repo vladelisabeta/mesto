@@ -7,6 +7,10 @@
   transition: linear 0.3s;
   background-repeat: no-repeat;
   border: none;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: right;
+  
 }
 
 .popup__button-close:hover {

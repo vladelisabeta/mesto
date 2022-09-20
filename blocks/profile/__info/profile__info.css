@@ -6,6 +6,9 @@
   margin-top: 7px;
   margin-bottom: 33px;
   max-width: 282px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @media screen and (min-width:1024px) {
