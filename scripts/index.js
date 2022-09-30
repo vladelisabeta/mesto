@@ -31,12 +31,10 @@ const formElement = document.querySelector('.popup__form');
 // фуНКЦИИ
 // POPUP OPEN и забрать текст из профиля в инпут
 
-function takeInfo() {
-  jobInput.value = profileJob.textContent;
-  nameInput.value = profileName.textContent;
-}
-
-console.log({buttonCloseCards})
+// function takeInfo() {
+//   jobInput.value = profileJob.textContent;
+//   nameInput.value = profileName.textContent;
+// }
 
 // открыть попап
 
@@ -44,15 +42,12 @@ function openPopup(popup) {
   popup.classList.add('popup_opened')
 }
 
-// POPUP CLOSE
+// закрыть попап
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function closePopupCards() {
-  popupCards.classList.remove('popup_opened');
-}
 
 // превент дефолт, переписка профиля и закрытие попап
 
@@ -64,26 +59,20 @@ function formSubmitHandler(evt) {
 }
 
 
-// слушатели
+// слушатели открытия кнопок /работают
+// ВОТ ОТСЮДА ФУНКЦИЯ ДЛЯ ПЕРЕПИСКИ ШТУК СДЕЛАТЬ ГИБКИЙ ФОРМАТ ИНПУТОВ
 
-// buttonClose.addEventListener('click', {
-//   handleEvent: (closePopup)
-// })
-
-// buttonEdit.addEventListener('click', {
-//   handleEvent: (openPopup)
-// })
-
-
-// слушатели открытия кнопок
 buttonEdit.addEventListener('click', function () {
   openPopup(popupEdit);
+  jobInput.value = profileJob.textContent;
+  nameInput.value = profileName.textContent;
 })
 
 buttonAdd.addEventListener('click', function () {
   openPopup(popupCards)
 })
 
+//слушатели закрытия /работают
 buttonCloseEdit.addEventListener('click', function () {
   closePopup(popupEdit)
 })
@@ -92,4 +81,9 @@ buttonCloseCards.addEventListener('click', function () {
   closePopup(popupCards)
 })
 
-formElement.addEventListener('submit', formSubmitHandler);
+// кнопка сейва работает но вылезает странная ошибка
+buttonSaveEdit.addEventListener('click', function () {
+  console.log('hello');
+})
+
+formElement.addEventListener('submit', formSubmitHandler)
