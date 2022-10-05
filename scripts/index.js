@@ -1,3 +1,31 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+
 // popups
 const popupEdit = document.querySelector('.popup_edit');
 const popupCards = document.querySelector('.popup_cards');
@@ -14,6 +42,12 @@ const buttonSaveEdit = popupEdit.querySelector('.popup__save');
 const buttonCloseCards = popupCards.querySelector('.popup__button-close');
 const buttonSaveCards = popupCards.querySelector('.popup__save');
 
+// контейнер
+const cardBox = document.querySelector('.place-grid');
+
+// темплейт
+const templateCard = document.querySelector('.template-card').content;
+
 
 // inputs
 const nameInput = popupEdit.querySelector('.popup__input_type_name');
@@ -27,14 +61,34 @@ const profileJob = document.querySelector('.profile__info');
 const formElement = document.querySelector('.popup__form');
 
 
+////////////////////////////////////////////////////////////////////
+// функция которая должна рендерить стартовые карточки (не работает)
 
-// фуНКЦИИ
-// POPUP OPEN и забрать текст из профиля в инпут
+function renderInitialCards(initialCards) {
+  const initialCard = templateCard.cloneNode(true);
+  const nameCard = initialCard.querySelector('.card__title');
 
-// function takeInfo() {
-//   jobInput.value = profileJob.textContent;
-//   nameInput.value = profileName.textContent;
-// }
+  templateCard.querySelector('.card__image').src = initialCards.link
+  // templateCard.querySelector('.card__title').textContent = initialCards.name
+  nameCard.textContent = initialCards.name;
+
+  cardBox.appendChild(initialCard);
+}
+
+function render() {
+  initialCards.forEach(renderInitialCards)
+}
+
+render()
+
+
+function pressLike(buttonLike) {
+  buttonLike.classList.toggle('card__heart_active')
+}
+
+
+
+
 
 // открыть попап
 
@@ -87,3 +141,9 @@ buttonSaveEdit.addEventListener('click', function () {
 })
 
 formElement.addEventListener('submit', formSubmitHandler)
+
+
+// общая проверка
+addEventListener('click', function () {
+  console.log();
+})
