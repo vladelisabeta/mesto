@@ -69,10 +69,9 @@ function renderInitialCards(initialCards) {
   const nameCard = initialCard.querySelector('.card__title');
 
   templateCard.querySelector('.card__image').src = initialCards.link
-  // templateCard.querySelector('.card__title').textContent = initialCards.name
   nameCard.textContent = initialCards.name;
 
-  cardBox.appendChild(initialCard);
+  cardBox.appendChild(initialCard)
 }
 
 function render() {
