@@ -64,28 +64,54 @@ const formElement = document.querySelector('.popup__form');
 ////////////////////////////////////////////////////////////////////
 // функция которая должна рендерить стартовые карточки (не работает)
 
-function renderInitialCards(initialCards) {
+// function createCard(initialCards) {
+//   const initialCard = templateCard.cloneNode(true);
+//   const nameCard = initialCard.querySelector('.card__title');
+
+//   initialCard.querySelector('.card__image').src = initialCards.link
+//   nameCard.textContent = initialCards.name;
+
+//   cardBox.appendChild(initialCard)
+//   console.log(initialCard)
+// }
+
+
+
+
+function createCard({ name, link }) {
   const initialCard = templateCard.cloneNode(true);
   const nameCard = initialCard.querySelector('.card__title');
 
-  templateCard.querySelector('.card__image').src = initialCards.link
-  nameCard.textContent = initialCards.name;
-
+  initialCard.querySelector('.card__image').src = link;
+  nameCard.textContent = name;
+  setEventListeners(initialCard);
   cardBox.appendChild(initialCard)
 }
 
 function render() {
-  initialCards.forEach(renderInitialCards)
+  initialCards.forEach(createCard)
 }
 
 render()
 
 
-function pressLike(buttonLike) {
-  buttonLike.classList.toggle('card__heart_active')
+function setEventListeners(cardNew) {
+  const deleteButton = cardNew.querySelector('.card__trash');
+  deleteButton.addEventListener('click', deleteCard);
+
+  const likeButton = cardNew.querySelector('.card__heart');
+  likeButton.addEventListener('click', pressLike);
 }
 
 
+function pressLike(buttonLike) {
+  buttonLike.classList.toggle('card__heart_active');
+}
+
+function deleteCard(button) {
+  const buttonDelete = button.target.closest('.card');
+  buttonDelete.remove()
+}
 
 
 

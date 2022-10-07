@@ -3,6 +3,7 @@
   max-width: 280px;
   border-radius: 3%;
   overflow: hidden;
+  position: relative;
 }
 
 @media screen and (min-width: 320px) and (max-width:767px) {
