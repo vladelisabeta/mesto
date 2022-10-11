@@ -29,6 +29,10 @@ const initialCards = [
 // popups
 const popupEdit = document.querySelector('.popup_edit');
 const popupCards = document.querySelector('.popup_cards');
+const popupImage = document.querySelector('.popup_image');
+
+// ссылка картинки попапа
+const srcImagePopup = document.querySelector('.popup__image');
 
 // кнопки page
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -122,12 +126,22 @@ function addCardSubmit(evt) {
    name = placeInput.value;
    link = linkInput.value;
 
-  console.log(name, link);
+  // console.log(name, link);
   createCard({name, link});
-  // closePopup(popupCards);
+  closePopup(popupCards);
 }
 
+// функция для открытия попапа с картинкой
 
+function openImagePopup(card) {
+  const cardImage = card.target.closest('.card__image');
+  const imageData = cardImage.src
+
+  srcImagePopup.src = imageData;
+  console.log(imageData);
+}
+
+addEventListener('click', openImagePopup)
 
 // открыть попап
 

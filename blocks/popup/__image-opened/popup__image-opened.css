@@ -1,0 +1,5 @@
+.popup__image-opened {
+  max-width: 75vh;
+  max-height: 75vh;
+  margin: auto;
+}
