@@ -31,11 +31,9 @@ const popupEdit = document.querySelector('.popup_edit');
 const popupCards = document.querySelector('.popup_cards');
 const popupImage = document.querySelector('.popup_image');
 
-// ссылка картинки попапа
+// картинка и текст попапа-картинки
 const srcImagePopup = document.querySelector('.popup__image');
 const textImagePopup = document.querySelector('.popup__image-text');
-
-// любая картинка карточки
 
 
 // кнопки page
@@ -139,12 +137,13 @@ function addCardSubmit(evt) {
 
 function openImagePopup(card) {
   const cardImage = card.target.closest('.card__image');
-  const imageData = cardImage.src
-  const textData = 
+  const imageData = cardImage.src;
+  const textData = card.target.closest('.card__title');
 
+  textImagePopup.textContent = textData;
   srcImagePopup.src = imageData;
   openPopup(popupImage);
-  console.log(imageData);
+  console.log(textData);
 }
 
 // addEventListener('click', openImagePopup)
