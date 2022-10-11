@@ -33,6 +33,10 @@ const popupImage = document.querySelector('.popup_image');
 
 // ссылка картинки попапа
 const srcImagePopup = document.querySelector('.popup__image');
+const textImagePopup = document.querySelector('.popup__image-text');
+
+// любая картинка карточки
+
 
 // кнопки page
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -136,10 +140,14 @@ function addCardSubmit(evt) {
 function openImagePopup(card) {
   const cardImage = card.target.closest('.card__image');
   const imageData = cardImage.src
+  const textData = 
 
   srcImagePopup.src = imageData;
+  openPopup(popupImage);
   console.log(imageData);
 }
+
+// addEventListener('click', openImagePopup)
 
 addEventListener('click', openImagePopup)
 
@@ -196,6 +204,8 @@ buttonSaveEdit.addEventListener('click', function () {
 formElement.addEventListener('submit', formSubmitHandler)
 
 cardElement.addEventListener('submit', addCardSubmit)
+
+
 
 
 // общая проверка
