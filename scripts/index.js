@@ -59,6 +59,8 @@ const linkInput = popupCards.querySelector('.popup__input_type-link');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__info');
 const formElement = document.querySelector('.popup__form');
+const cardElement = document.querySelector('.popup_cards');
+
 
 
 ////////////////////////////////////////////////////////////////////
@@ -76,16 +78,15 @@ const formElement = document.querySelector('.popup__form');
 // }
 
 
-
-
 function createCard({ name, link }) {
   const initialCard = templateCard.cloneNode(true);
   const nameCard = initialCard.querySelector('.card__title');
 
   initialCard.querySelector('.card__image').src = link;
   nameCard.textContent = name;
+
   setEventListeners(initialCard);
-  cardBox.appendChild(initialCard)
+  cardBox.prepend(initialCard)
 }
 
 function render() {
@@ -95,22 +96,35 @@ function render() {
 render()
 
 
-function setEventListeners(cardNew) {
-  const deleteButton = cardNew.querySelector('.card__trash');
-  deleteButton.addEventListener('click', deleteCard);
+function setEventListeners(newCard) {
+  const buttonDelete = newCard.querySelector('.card__trash');
+  buttonDelete.addEventListener('click', deleteCard);
 
-  const likeButton = cardNew.querySelector('.card__heart');
-  likeButton.addEventListener('click', pressLike);
+  const buttonLike = newCard.querySelector('.card__heart');
+  buttonLike.addEventListener('click', pressLike);
 }
 
 
 function pressLike(buttonLike) {
-  buttonLike.classList.toggle('card__heart_active');
+  buttonLike.target.classList.toggle('card__heart_active')
 }
 
 function deleteCard(button) {
   const buttonDelete = button.target.closest('.card');
   buttonDelete.remove()
+}
+
+
+
+// попытка сделать добавление карточки
+function addCardSubmit(evt) {
+  evt.preventDefault();
+   name = placeInput.value;
+   link = linkInput.value;
+
+  console.log(name, link);
+  createCard({name, link});
+  // closePopup(popupCards);
 }
 
 
@@ -134,7 +148,7 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   profileJob.textContent = jobInput.value;
   profileName.textContent = nameInput.value;
-  closePopup();
+  closePopup(popupEdit);
 }
 
 
@@ -166,6 +180,8 @@ buttonSaveEdit.addEventListener('click', function () {
 })
 
 formElement.addEventListener('submit', formSubmitHandler)
+
+cardElement.addEventListener('submit', addCardSubmit)
 
 
 // общая проверка
