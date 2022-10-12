@@ -140,7 +140,7 @@ function openImagePopup(card) {
   const imageData = cardImage.src;
   const textData = card.target.closest('.card__title');
 
-  textImagePopup.textContent = textData;
+  // textImagePopup.textContent = textData;
   srcImagePopup.src = imageData;
   openPopup(popupImage);
   console.log(textData);
