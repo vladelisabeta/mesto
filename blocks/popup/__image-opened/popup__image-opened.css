@@ -1,8 +1,7 @@
 .popup__image-opened {
-  max-width: 75vh;
-  max-height: 75vh;
   margin: auto;
   position: relative;
   display: flex;
   flex-direction: row-reverse;
+  
 }

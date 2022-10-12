@@ -1,3 +1,5 @@
-.popup__buttone-close_image {
-
+.popup__button-close_image {
+  margin-right: -40px;
+  margin-top: -30px;
+  position: absolute;
 }
