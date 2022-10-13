@@ -48,6 +48,9 @@ const buttonSaveEdit = popupEdit.querySelector('.popup__save');
 const buttonCloseCards = popupCards.querySelector('.popup__button-close');
 const buttonSaveCards = popupCards.querySelector('.popup__save');
 
+// кнопка закрыть попап картинки
+const buttonCloseImage = popupImage.querySelector('.popup__button-close');
+
 // контейнер
 const cardBox = document.querySelector('.place-grid');
 
@@ -70,19 +73,7 @@ const cardElement = document.querySelector('.popup_cards');
 
 
 ////////////////////////////////////////////////////////////////////
-// функция которая должна рендерить стартовые карточки (не работает)
-
-// function createCard(initialCards) {
-//   const initialCard = templateCard.cloneNode(true);
-//   const nameCard = initialCard.querySelector('.card__title');
-
-//   initialCard.querySelector('.card__image').src = initialCards.link
-//   nameCard.textContent = initialCards.name;
-
-//   cardBox.appendChild(initialCard)
-//   console.log(initialCard)
-// }
-
+// функция которая должна рендерить карточки
 
 function createCard({ name, link }) {
   const initialCard = templateCard.cloneNode(true);
@@ -95,12 +86,13 @@ function createCard({ name, link }) {
   cardBox.prepend(initialCard)
 }
 
-function render() {
+function renderInitialCards() {
   initialCards.forEach(createCard)
 }
 
-render()
+renderInitialCards()
 
+// функция для навешивания слушателей
 
 function setEventListeners(newCard) {
   const buttonDelete = newCard.querySelector('.card__trash');
@@ -110,11 +102,12 @@ function setEventListeners(newCard) {
   buttonLike.addEventListener('click', pressLike);
 }
 
-
+// лайк функция
 function pressLike(buttonLike) {
   buttonLike.target.classList.toggle('card__heart_active')
 }
 
+// делит функция
 function deleteCard(button) {
   const buttonDelete = button.target.closest('.card');
   buttonDelete.remove()
@@ -122,14 +115,13 @@ function deleteCard(button) {
 
 
 
-// попытка сделать добавление карточки
+// сделать добавление карточки
 function addCardSubmit(evt) {
   evt.preventDefault();
-   name = placeInput.value;
-   link = linkInput.value;
+  name = placeInput.value;
+  link = linkInput.value;
 
-  // console.log(name, link);
-  createCard({name, link});
+  createCard({ name, link });
   closePopup(popupCards);
 }
 
@@ -145,8 +137,6 @@ function openImagePopup(card) {
   openPopup(popupImage);
   console.log(textData);
 }
-
-// addEventListener('click', openImagePopup)
 
 addEventListener('click', openImagePopup)
 
@@ -174,7 +164,6 @@ function formSubmitHandler(evt) {
 
 
 // слушатели открытия кнопок /работают
-// ВОТ ОТСЮДА ФУНКЦИЯ ДЛЯ ПЕРЕПИСКИ ШТУК СДЕЛАТЬ ГИБКИЙ ФОРМАТ ИНПУТОВ
 
 buttonEdit.addEventListener('click', function () {
   openPopup(popupEdit);
@@ -195,9 +184,8 @@ buttonCloseCards.addEventListener('click', function () {
   closePopup(popupCards)
 })
 
-// кнопка сейва работает но вылезает странная ошибка
-buttonSaveEdit.addEventListener('click', function () {
-  console.log('hello');
+buttonCloseImage.addEventListener('click', function () {
+  closePopup(popupImage)
 })
 
 formElement.addEventListener('submit', formSubmitHandler)
