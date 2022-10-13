@@ -69,7 +69,7 @@ const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__info');
 const formElement = document.querySelector('.popup__form');
 const cardElement = document.querySelector('.popup_cards');
-
+const formCardPopup = document.querySelector('.popup__form_cards');
 
 
 ////////////////////////////////////////////////////////////////////
@@ -81,6 +81,7 @@ function createCard({ name, link }) {
 
   initialCard.querySelector('.card__image').src = link;
   nameCard.textContent = name;
+
 
   setEventListeners(initialCard);
   cardBox.prepend(initialCard)
@@ -103,6 +104,7 @@ function setEventListeners(newCard) {
 
   const cardImage = newCard.querySelector('.card__image');
   cardImage.addEventListener('click', openImagePopup);
+
 }
 
 // лайк функция
@@ -125,6 +127,7 @@ function addCardSubmit(evt) {
   link = linkInput.value;
 
   createCard({ name, link });
+  resetCardsInput();
   closePopup(popupCards);
 }
 
@@ -135,10 +138,15 @@ function openImagePopup(card) {
   const imageData = cardImage.src;
   const textData = card.target.closest('.card__title');
 
-  // textImagePopup.textContent = textData;
+  textImagePopup.textContent = textData;
   srcImagePopup.src = imageData;
   openPopup(popupImage);
   console.log(textData);
+}
+
+// функция ресета
+function resetCardsInput() {
+  formCardPopup.reset();
 }
 
 // открыть попап
@@ -193,3 +201,7 @@ formElement.addEventListener('submit', formSubmitHandler)
 
 cardElement.addEventListener('submit', addCardSubmit)
 
+
+// addEventListener('click', function(){
+//   console.log(formCardPopup);
+// })
