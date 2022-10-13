@@ -88,7 +88,8 @@ function createCard({ name, link }) {
 }
 
 function renderInitialCards() {
-  initialCards.forEach(createCard)
+  const cardsReverse = [...initialCards].reverse();
+  cardsReverse.forEach(createCard);
 }
 
 renderInitialCards()
@@ -104,7 +105,6 @@ function setEventListeners(newCard) {
 
   const cardImage = newCard.querySelector('.card__image');
   cardImage.addEventListener('click', openImagePopup);
-
 }
 
 // лайк функция
@@ -134,14 +134,14 @@ function addCardSubmit(evt) {
 // функция для открытия попапа с картинкой
 
 function openImagePopup(card) {
-  const cardImage = card.target.closest('.card__image');
+  const cardImage = card.target;
   const imageData = cardImage.src;
-  const textData = card.target.closest('.card__title');
+  // const textData = card.target.closest('.card__title');
 
-  textImagePopup.textContent = textData;
+  // textImagePopup.textContent = textData;
   srcImagePopup.src = imageData;
   openPopup(popupImage);
-  console.log(textData);
+  console.log(cardImage);
 }
 
 // функция ресета
