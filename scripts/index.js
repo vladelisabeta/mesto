@@ -100,6 +100,9 @@ function setEventListeners(newCard) {
 
   const buttonLike = newCard.querySelector('.card__heart');
   buttonLike.addEventListener('click', pressLike);
+
+  const cardImage = newCard.querySelector('.card__image');
+  cardImage.addEventListener('click', openImagePopup);
 }
 
 // лайк функция
@@ -138,7 +141,7 @@ function openImagePopup(card) {
   console.log(textData);
 }
 
-addEventListener('click', openImagePopup)
+// addEventListener('click', openImagePopup)
 
 // открыть попап
 
