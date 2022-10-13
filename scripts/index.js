@@ -141,8 +141,6 @@ function openImagePopup(card) {
   console.log(textData);
 }
 
-// addEventListener('click', openImagePopup)
-
 // открыть попап
 
 function openPopup(popup) {
@@ -195,10 +193,3 @@ formElement.addEventListener('submit', formSubmitHandler)
 
 cardElement.addEventListener('submit', addCardSubmit)
 
-
-
-
-// общая проверка
-addEventListener('click', function () {
-  console.log();
-})
