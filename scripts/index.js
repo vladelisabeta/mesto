@@ -82,6 +82,8 @@ function createCard({ name, link }) {
   initialCard.querySelector('.card__image').src = link;
   nameCard.textContent = name;
 
+  initialCard.querySelector('.card__image').alt = name;
+
 
   setEventListeners(initialCard);
   cardBox.prepend(initialCard)
@@ -136,12 +138,11 @@ function addCardSubmit(evt) {
 function openImagePopup(card) {
   const cardImage = card.target;
   const imageData = cardImage.src;
-  // const textData = card.target.closest('.card__title');
+  const textData = cardImage.alt;
 
-  // textImagePopup.textContent = textData;
+  textImagePopup.textContent = textData;
   srcImagePopup.src = imageData;
   openPopup(popupImage);
-  console.log(cardImage);
 }
 
 // функция ресета
