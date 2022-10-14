@@ -32,7 +32,7 @@ const popupCards = document.querySelector('.popup_cards');
 const popupImage = document.querySelector('.popup_image');
 
 // картинка и текст попапа-картинки
-const srcImagePopup = document.querySelector('.popup__image');
+const dataImagePopup = document.querySelector('.popup__image');
 const textImagePopup = document.querySelector('.popup__image-text');
 
 
@@ -78,11 +78,12 @@ const formCardPopup = document.querySelector('.popup__form_cards');
 function createCard({ name, link }) {
   const initialCard = templateCard.cloneNode(true);
   const nameCard = initialCard.querySelector('.card__title');
+  const imageCard = initialCard.querySelector('.card__image');
 
-  initialCard.querySelector('.card__image').src = link;
+  imageCard.src = link;
   nameCard.textContent = name;
 
-  initialCard.querySelector('.card__image').alt = name;
+  imageCard.alt = name;
 
 
   setEventListeners(initialCard);
@@ -141,7 +142,8 @@ function openImagePopup(card) {
   const textData = cardImage.alt;
 
   textImagePopup.textContent = textData;
-  srcImagePopup.src = imageData;
+  dataImagePopup.src = imageData;
+  dataImagePopup.alt = textData;
   openPopup(popupImage);
 }
 
@@ -165,7 +167,7 @@ function closePopup(popup) {
 
 // превент дефолт, переписка профиля и закрытие попап
 
-function formSubmitHandler(evt) {
+function submitFormHandler(evt) {
   evt.preventDefault();
   profileJob.textContent = jobInput.value;
   profileName.textContent = nameInput.value;
@@ -198,11 +200,7 @@ buttonCloseImage.addEventListener('click', function () {
   closePopup(popupImage)
 })
 
-formElement.addEventListener('submit', formSubmitHandler)
+formElement.addEventListener('submit', submitFormHandler)
 
 cardElement.addEventListener('submit', addCardSubmit)
 
-
-// addEventListener('click', function(){
-//   console.log(formCardPopup);
-// })
