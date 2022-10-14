@@ -91,7 +91,7 @@ function createCard({ name, link }) {
 }
 
 function renderCard(createCard, cardBox) {
-cardBox.prepend(createCard);
+  cardBox.prepend(createCard);
 }
 
 
@@ -130,20 +130,20 @@ function deleteCard(button) {
 
 
 // функция добавления новых карточек
-function addNewCard({name, link}) {
+function addNewCard({ name, link }) {
   name = placeInput.value;
   link = linkInput.value;
-  const cardElement = createCard({name, link});
+  const cardElement = createCard({ name, link });
   renderCard(cardElement, cardBox);
 }
 
 // ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО
- function addCardSubmit(evt) {
+function addCardSubmit(evt) {
   evt.preventDefault();
-  addNewCard({name, link});
+  addNewCard({ name, link });
   resetCardsInput();
   closePopup(popupCards);
- }
+}
 
 
 // функция для открытия попапа с картинкой
