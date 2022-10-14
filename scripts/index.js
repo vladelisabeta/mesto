@@ -130,17 +130,34 @@ function deleteCard(button) {
 
 
 
-// сделать добавление карточки
-function addCardSubmit(evt) {
-  evt.preventDefault();
+// // сделать добавление карточки
+// function addCardSubmit(evt) {
+//   evt.preventDefault();
+//   name = placeInput.value;
+//   link = linkInput.value;
+
+//   createCard({ name, link });
+//   renderCard(createCard, cardBox);
+//   resetCardsInput();
+//   closePopup(popupCards);
+// }
+
+// функция добавления новых карточек
+function addNewCard({name, link}) {
   name = placeInput.value;
   link = linkInput.value;
+  const cardElement = createCard({name, link});
+  renderCard(cardElement, cardBox);
+}
 
-  createCard({ name, link });
-  renderCard(createCard, cardBox);
+ function addCardSubmit(evt) {
+  evt.preventDefault();
+  addNewCard({name, link});
   resetCardsInput();
   closePopup(popupCards);
-}
+ }
+
+
 
 // функция для открытия попапа с картинкой
 
