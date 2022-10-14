@@ -87,15 +87,22 @@ function createCard({ name, link }) {
 
 
   setEventListeners(initialCard);
-  cardBox.prepend(initialCard)
+  return initialCard;
 }
 
-function renderInitialCards() {
-  const cardsReverse = [...initialCards].reverse();
-  cardsReverse.forEach(createCard);
+function renderCard(createCard, cardBox) {
+cardBox.prepend(createCard);
 }
 
-renderInitialCards()
+
+function renderInitialCards(initialCards, cardBox) {
+  initialCards.forEach((item) => {
+    const cardElement = createCard(item);
+    renderCard(cardElement, cardBox)
+  })
+}
+
+renderInitialCards(initialCards, cardBox)
 
 // функция для навешивания слушателей
 
@@ -130,6 +137,7 @@ function addCardSubmit(evt) {
   link = linkInput.value;
 
   createCard({ name, link });
+  renderCard(createCard, cardBox);
   resetCardsInput();
   closePopup(popupCards);
 }
