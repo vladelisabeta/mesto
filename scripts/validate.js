@@ -17,41 +17,41 @@
 
 // функция показа ошибки
 
-function showInputError(formElement, inputElement, errorMessage) {
-  const spanErrorMessage = formElement.querySelector(`.${inputElement.id}-error`); //errorElement
-  inputElement.classList.add('popup__input_type_error'); //ошибка ИНПУТА
+function showInputError(formSelector, inputSelector, errorMessage) {
+  const spanErrorMessage = formSelector.querySelector(`.${inputSelector.id}-error`); //errorElement
+  inputSelector.classList.add('popup__input_type_error'); //ошибка ИНПУТА
   spanErrorMessage.textContent = errorMessage;
   spanErrorMessage.classList.add('popup__error_visible'); // текст ошибки
 };
 // функция сокрытия ошибки
 
-function hideInputError(formElement, inputElement) {
-  const spanErrorMessage = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
+function hideInputError(formSelector, inputSelector) {
+  const spanErrorMessage = formSelector.querySelector(`.${inputSelector.id}-error`);
+  inputSelector.classList.remove('popup__input_type_error');
   spanErrorMessage.classList.remove('popup__error_visible');
   spanErrorMessage.textContent = '';
 };
 
 // проверка валидности
-function checkInputValidation(formElement, inputElement) {
-  if (!inputElement.vaidity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+function checkInputValidation(formSelector, inputSelector) {
+  if (!inputSelector.vaidity.valid) {
+    showInputError(formSelector, inputSelector, inputSelector.validationMessage);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formSelector, inputSelector);
   }
 };
 
 // функция создания обработчиков
 
-function setListenersForInputs(formElement) {
-  const allInputs = Array.from(formElement.querySelectorAll('.popup__input'));
-  allInputs.forEach(createEventListener(inputElement));
+function setListenersForInputs(formSelector) {
+  const allInputs = Array.from(formSelector.querySelectorAll('.popup__input'));
+  allInputs.forEach(createEventListener(inputSelector));
 }
 
 // функция создания ивент листенера
-function createEventListener(inputElement) {
-  inputElement.addEventListener('input', function () {
-    checkInputValidation(formElement, inputElement);
+function createEventListener(inputSelector) {
+  inputSelector.addEventListener('input', function () {
+    checkInputValidation(formSelector, inputSelector);
   });
 }
 
@@ -72,11 +72,13 @@ function enableValidation({
   });
 }
 
+
+// попытка вызвать функцию ._. не работает конечно же
 enableValidation(({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
   inactiveButtonClass: 'popup__save_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible' // сделан. существует как класс. надо стилизовать и прописать везде.
+  errorClass: 'popup__error_visible'
 }))
