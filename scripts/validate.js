@@ -7,7 +7,7 @@ const validateObj = {
   errorClass: 'popup__error_visible'
 }
 
-function enableValidation({ formSelector, }) {
+function function enableValidation({ formSelector, ...rest}) {
   const allForms = Array.from(document.querySelectorAll(formSelector));
   // console.log(allForms); // выводит две формы
   allForms.forEach(setInputEventListeners(formSelector));
@@ -28,7 +28,7 @@ function setInputEventListeners(formObject) {
 function createEventListener(inputObject) {
   inputObject.addEventListener('input', () => {
     checkCurrentInputValidity();
-    checkAllInputValidity();
+    checkAllInputValidity(); // тут нет аргументов потому что я не знаю, что именно мне передавать в данном контексте 
   })
 }
 
