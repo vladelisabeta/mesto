@@ -7,39 +7,32 @@ const validateObj = {
   errorClass: 'popup__error_visible'
 }
 
-// function enableValidation({ formSelector, }) {
-//   const allForms = Array.from(document.querySelectorAll(formSelector));
-//   console.log(allForms); // выводит две формы
-//   allForms.forEach(setEventListeners());
-// }
+function enableValidation({ formSelector, }) {
+  const allForms = Array.from(document.querySelectorAll(formSelector));
+  // console.log(allForms); // выводит две формы
+  allForms.forEach(setInputEventListeners(formSelector));
+}
+// => ===  вызывает функцию; () === содержит функцию (по факту то же самое._.)
+//enableValidation => setInputEventListeners => createElementListeners => checkCurrentInputValidity(showInputError + hideInputError) + checkAllInputValidity(disableButtonSave)
 
-// function setEventListeners(formObject) {
-//   const allInputs = Array.from(formObject.querySelectorAll(''))
-// } //скорее всего ненужная функция
 
 //функция установки событий на все инпуты в форме. накладывает обработчик события ввода
 function setInputEventListeners(formObject) {
   const allInputs = Array.from(formObject.querySelectorAll('.popup__input'));
-  console.log(allInputs); //выводит два инпута
-  allInputs.forEach(addEventListener('input', ));// здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
+  // console.log(allInputs); //выводит два инпута
+  allInputs.forEach(createEventListener(inputObject));//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
 }
 
 
-
-
 // событие ввода текста
-
 function createEventListener(inputObject) {
   inputObject.addEventListener('input', () => {
     checkCurrentInputValidity();
     checkAllInputValidity();
-    // checkCurrentInputValidity КОНКРЕТНОГО ЭТОГО ИНПУТА(invalid = > error*function*; valid => hide error*function*
-    // checkAllInputValidity (if invalid => disable save button) НУЖНА ФУНКЦИЯ ПРОВЕРКИ ВСЕЙ ФОРМЫ
   })
 }
 
 function showInputError(formObject, inputObject, errorMessage) {
-  //здесь может быть ваша реклама
   const spanErrorMessage = formObject.querySelector(`.${inputObject.id}-error`);
   inputObject.classList.add('popup__input_type_error');
   spanErrorMessage.textContent = errorMessage; // тут будет validation message
@@ -48,17 +41,14 @@ function showInputError(formObject, inputObject, errorMessage) {
 
 
 function hideInputError(formObject, inputObject) {
-  //здесь тоже может быть ваша реклама
   const spanErrorMessage = formObject.querySelector(`.${inputObject.id}-error`);
   inputObject.classList.remove('popup__input_type_error');
   spanErrorMessage.classList.remove('popup__error_visible'); //удаляет на спан класс который показывает его
   spanErrorMessage.textContent = '';
 }
 
+// функция проверки конкретного инпута
 function checkCurrentInputValidity(formObject, inputObject) {
-  // функция проверки конкретного инпута
-  //(invalid = > error*function*;
-  //valid => hide error*function*
   if (!inputObject.validity.valid) {
     showInputError(formObject, inputObject, inputObject.validationMessage); //показать ошибку 3й аргумент дефолтный текст ошибки.
   } else {
@@ -66,13 +56,7 @@ function checkCurrentInputValidity(formObject, inputObject) {
   }
 };
 
-//функция проверки всех инпутов. берет на вход лист инпутов. коллбек возвращает инпут с ошибкой(??)
-// function checkAllInputValidity(allInputs) {
-//   return allInputs.some((inputObject) => {
-//     return !inputObject.validity.valid
-//   });
-// }
-
+// я не уверена если эти двое работают
 function disableButtonSave(buttonSave) {
   buttonSave.setAttribute('disabled', true);
   buttonSave.classList.add('popup__save_disabled');
@@ -83,3 +67,5 @@ function checkAllInputValidity(allInputs, buttonSave) {
     disableButtonSave(buttonSave);
   }
 }
+
+// enableValidation(validateObj);
