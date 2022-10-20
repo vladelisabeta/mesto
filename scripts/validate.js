@@ -7,10 +7,16 @@ const validateObj = {
   errorClass: 'popup__error_visible'
 }
 
-function function enableValidation({ formSelector, ...rest}) {
+function enableValidation({ formSelector, ...rest}) {
   const allForms = Array.from(document.querySelectorAll(formSelector));
   // console.log(allForms); // выводит две формы
-  allForms.forEach(setInputEventListeners(formSelector));
+  // allForms.forEach(setInputEventListeners(formSelector));// здесь какая то ошибка
+  allForms.forEach((formObject) => {
+    formObject.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    setEventListeners(formObject, rest);
+  })
 }
 // => ===  вызывает функцию; () === содержит функцию (по факту то же самое._.)
 //enableValidation => setInputEventListeners => createElementListeners => checkCurrentInputValidity(showInputError + hideInputError) + checkAllInputValidity(disableButtonSave)
@@ -28,7 +34,7 @@ function setInputEventListeners(formObject) {
 function createEventListener(inputObject) {
   inputObject.addEventListener('input', () => {
     checkCurrentInputValidity();
-    checkAllInputValidity(); // тут нет аргументов потому что я не знаю, что именно мне передавать в данном контексте 
+    checkAllInputValidity(); // тут нет аргументов потому что я не знаю, что именно мне передавать в данном контексте
   })
 }
 
