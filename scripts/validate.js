@@ -17,12 +17,6 @@ function enableValidation(validateObj) {
     setInputEventListeners(formElement, validateObj);
   })
 }
-enableValidation({formSelector: '.popup__form',
-inputSelector: '.popup__input',
-submitButtonSelector: '.popup__save',
-inactiveButtonClass: 'popup__save_disabled',
-inputErrorClass: 'popup__input_type_error',
-errorClass: 'popup__error_visible'})
 
 // => ===  вызывает функцию; () === содержит функцию (по факту то же самое._.)
 //enableValidation => setInputEventListeners => createElementListeners => checkCurrentInputValidity(showInputError + hideInputError) + checkAllInputValidity(disableButtonSave)
@@ -33,104 +27,106 @@ function setInputEventListeners(formElement, validateObj) {
   const {
     inputSelector,
   } = validateObj
-  const formInput = formElement.querySelector(inputSelector);
+  // const formInput = formElement.querySelector(inputSelector);
+  
   const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
-console.log(formInput);
-  allInputs.forEach(createEventListener(formInput));//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
+  allInputs.forEach(createEventListener(formElement, validateObj));//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
+  console.log(allInputs);
 }
 
-
-// // событие ввода текста
-function createEventListener(formElement, validateObj) {
-  const {
-    inputSelector,
-    submitButtonSelector,
-  } = validateObj;
-  const formInput = formElement.querySelector(inputSelector);
-  const allInputs = Array.from(formElement.querySelectorAll(inputSelector)); //зачем мне тут все ипуты?
-  formInput.addEventListener('input', () => { // === .popup__input.addEventListener
-    checkCurrentInputValidity(formElement, validateObj);
-    checkAllInputValidity(formElement, validateObj); // тут нет аргументов потому что я не знаю, что именно мне передавать в данном контексте
-  })
-}
+setInputEventListeners(formElement, validateObj)
 
 
-function showInputError(formElement, validateObj, errorMessage) {
-  const {
-    inputSelector,
-    inputErrorClass,
-    errorClass
-  } = validateObj;
-  const spanErrorMessage = formElement.querySelector(`.${inputSelector.id}-error`);
-  const formInput = formElement.querySelector(inputSelector);
-
-  formInput.classList.add(inputErrorClass);
-  spanErrorMessage.textContent = errorMessage; // тут будет validation message
-  spanErrorMessage.classList.add(errorClass); //добавляет на спан класс который показывает его
-}
-
-function hideInputError(formElement, validateObj) {
-  const {
-    inputSelector,
-    inputErrorClass,
-    errorClass
-  } = validateObj
-  const spanErrorMessage = formElement.querySelector(`.${inputSelector.id}-error`);
-  const formInput = formElement.querySelector(inputSelector);
-
-  formInput.classList.remove(inputErrorClass);
-  spanErrorMessage.classList.remove(errorClass); //удаляет на спан класс который показывает его
-  spanErrorMessage.textContent = '';
-}
-
-// функция проверки конкретного инпута
-function checkCurrentInputValidity(formElement, validateObj) {
-  const {
-    inputSelector,
-  } = validateObj;
-  const formInput = formElement.querySelector(inputSelector);
-
-  if (!formInput.validity.valid) {
-    showInputError(formElement, validateObj, formInput.validationMessage); //
-  } else {
-    hideInputError(formElement, validateObj);
-  }
-};
-
-console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+// // // событие ввода текста
+// function createEventListener(formElement, validateObj) {
+//   const {
+//     inputSelector,
+//   } = validateObj;
+//   const formInput = formElement.querySelector(inputSelector);
+//   const allInputs = Array.from(formElement.querySelectorAll(inputSelector)); //зачем мне тут все ипуты?
+//   formInput.addEventListener('input', () => {
+//     checkCurrentInputValidity(formElement, validateObj);
+//     checkAllInputValidity(formElement, validateObj); // тут нет аргументов потому что я не знаю, что именно мне передавать в данном контексте
+//   })
+// }
 
 
-// я не уверена если эти двое работают
-function disableButtonSave(formElement, validateObj) {
-  const {
-    submitButtonSelector,
-    inactiveButtonClass
-  } = validateObj;
-  const formSaveButton = formElement.querySelector(submitButtonSelector);
+// function showInputError(formElement, validateObj, errorMessage) {
+//   const {
+//     inputSelector,
+//     inputErrorClass,
+//     errorClass
+//   } = validateObj;
+//   const spanErrorMessage = formElement.querySelector(`.${inputSelector.id}-error`);
+//   const formInput = formElement.querySelector(inputSelector);
 
-  formSaveButton.setAttribute('disabled', true);
-  formSaveButton.classList.add(inactiveButtonClass);
-}
+//   formInput.classList.add(inputErrorClass);
+//   spanErrorMessage.textContent = errorMessage; // тут будет validation message
+//   spanErrorMessage.classList.add(errorClass); //добавляет на спан класс который показывает его
+// }
 
-function checkAllInputValidity(formElement, validateObj) {
-  const {
-    inputSelector,
-    submitButtonSelector,
-  } = validateObj;
-  const allInputs = formElement.querySelectorAll(inputSelector);
-  const formInput = formElement.querySelector(inputSelector);
+// function hideInputError(formElement, validateObj) {
+//   const {
+//     inputSelector,
+//     inputErrorClass,
+//     errorClass
+//   } = validateObj
+//   const spanErrorMessage = formElement.querySelector(`.${inputSelector.id}-error`);
+//   const formInput = formElement.querySelector(inputSelector);
 
-  if (allInputs.some(!formInput.validity.valid)) {
-    disableButtonSave(formElement, validateObj);
-  }
-}
+//   formInput.classList.remove(inputErrorClass);
+//   spanErrorMessage.classList.remove(errorClass); //удаляет на спан класс который показывает его
+//   spanErrorMessage.textContent = '';
+// }
+
+// // функция проверки конкретного инпута
+// function checkCurrentInputValidity(formElement, validateObj) {
+//   const {
+//     inputSelector,
+//   } = validateObj;
+//   const formInput = formElement.querySelector(inputSelector);
+
+//   if (!formInput.validity.valid) {
+//     showInputError(formElement, validateObj, formInput.validationMessage); //
+//   } else {
+//     hideInputError(formElement, validateObj);
+//   }
+// };
+
+// console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+// // я не уверена если эти двое работают
+// function disableButtonSave(formElement, validateObj) {
+//   const {
+//     submitButtonSelector,
+//     inactiveButtonClass
+//   } = validateObj;
+//   const formSaveButton = formElement.querySelector(submitButtonSelector);
+
+//   formSaveButton.setAttribute('disabled', true);
+//   formSaveButton.classList.add(inactiveButtonClass);
+// }
+
+// function checkAllInputValidity(formElement, validateObj) {
+//   const {
+//     inputSelector,
+//     submitButtonSelector,
+//   } = validateObj;
+//   const allInputs = formElement.querySelectorAll(inputSelector);
+//   const formInput = formElement.querySelector(inputSelector);
+
+//   if (allInputs.some(!formInput.validity.valid)) {
+//     disableButtonSave(formElement, validateObj);
+//   }
+// }
+
+
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__save',
+//   inactiveButtonClass: 'popup__save_disabled',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__error_visible'
+// });
