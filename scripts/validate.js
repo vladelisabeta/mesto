@@ -8,6 +8,8 @@ const validateObj = {
 }
 
 // надо сделать чтобы все формы проверялись
+// чтобы адекватно блокировалась кнопка. почему она не блокируется? ошибка логики?
+
 
 function enableValidation(validateObj) {
   const { formSelector } = validateObj;
@@ -29,11 +31,12 @@ function setInputEventListeners(formElement, validateObj) {
   const {
     inputSelector,
   } = validateObj
-  const formInput = formElement.querySelector(inputSelector);
+  // const formInput = formElement.querySelector(inputSelector);
   const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
 
-  allInputs.forEach((formInput) => { createEventListener(formElement, validateObj) });//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
-console.log(formInput)
+  //как мне тут повесить на все ИНПУТЫ
+  allInputs.forEach((inputSelector) => { createEventListener(formElement, validateObj) });
+console.log(allInputs)
 }
 setInputEventListeners(formElement, validateObj)
 
@@ -46,7 +49,7 @@ function createEventListener(formElement, validateObj) {
   const allInputs = Array.from(formElement.querySelectorAll(inputSelector)); //зачем мне тут все ипуты?
   formInput.addEventListener('input', function () {
     checkCurrentInputValidity(formElement, validateObj);
-    hasInvalidInput(formElement, validateObj); // тут нет аргументов потому что я не знаю, что именно мне передавать в данном контексте
+    hasInvalidInput(formElement, validateObj);
   })
 }
 
@@ -100,7 +103,7 @@ function checkCurrentInputValidity(formElement, validateObj) {
   }
 };
 
-
+//функция НАЛИЧИЯ невалидного инпута и реакция
 function hasInvalidInput(formElement, validateObj) {
   const {
     inputSelector,
@@ -113,6 +116,7 @@ function hasInvalidInput(formElement, validateObj) {
   }
 }
 
+// функция проверки ВСЕГО и блокировка кнопки. здесь большие проблемы с логикой 
 function checkAllInputValidity(formElement, validateObj) {
   const {
     inputSelector,
