@@ -58,7 +58,7 @@ function showInputError(formElement, validateObj, errorMessage) {
   const formInput = formElement.querySelector(inputSelector);
 
   formInput.classList.add(inputErrorClass);
-  spanErrorMessage.textContent = errorMessage; // тут будет validation message
+  spanErrorMessage.value = errorMessage; // тут будет validation message
   spanErrorMessage.classList.add(errorClass); //добавляет на спан класс который показывает его
 }
 
