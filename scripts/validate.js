@@ -30,8 +30,7 @@ function setInputEventListeners(formElement, validateObj) {
   const formInput = formElement.querySelector(inputSelector);
   const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
 
-  allInputs.forEach((formInput) => { createEventListener(formInput, validateObj) });//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
-  console.log(allInputs);
+  allInputs.forEach((formInput) => { createEventListener(formElement, validateObj) });//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
 }
 
 
@@ -91,7 +90,6 @@ function checkCurrentInputValidity(formElement, validateObj) {
   }
 };
 
-console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
 
 // я не уверена если эти двое работают
@@ -109,7 +107,6 @@ function disableButtonSave(formElement, validateObj) {
 function checkAllInputValidity(formElement, validateObj) {
   const {
     inputSelector,
-    submitButtonSelector,
   } = validateObj;
   const allInputs = formElement.querySelectorAll(inputSelector);
   const formInput = formElement.querySelector(inputSelector);
