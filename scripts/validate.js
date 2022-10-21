@@ -7,15 +7,13 @@ const validateObj = {
   errorClass: 'popup__error_visible'
 }
 
-function enableValidation({ formSelector, ...rest}) {
-  const allForms = Array.from(document.querySelectorAll(formSelector));
-  // console.log(allForms); // выводит две формы
-  // allForms.forEach(setInputEventListeners(formSelector));// здесь какая то ошибка
-  allForms.forEach((formObject) => {
-    formObject.addEventListener('submit', (evt) => {
+function enableValidation(validateObj) {
+  const allForms = Array.from(document.querySelectorAll(validateObj.formSelector));
+  allForms.forEach((formSelector) => {
+    formSelector.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListeners(formObject, rest);
+    setInputEventListeners(validateObj);
   })
 }
 // => ===  вызывает функцию; () === содержит функцию (по факту то же самое._.)
@@ -23,17 +21,17 @@ function enableValidation({ formSelector, ...rest}) {
 
 
 //функция установки событий на все инпуты в форме. накладывает обработчик события ввода
-function setInputEventListeners(formObject) {
-  const allInputs = Array.from(formObject.querySelectorAll('.popup__input'));
-  // console.log(allInputs); //выводит два инпута
-  allInputs.forEach(createEventListener(inputObject));//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
+function setInputEventListeners(validateObj) {
+  const allInputs = Array.from(document.querySelectorAll(validateObj.inputSelector));
+  console.log(allInputs); //выводит два инпута
+  allInputs.forEach(createEventListener(validateObj.inputSelector));//обработчик события ввода повешен на все инпуты ((((((())))))) здесь должен быть колбек проверки валидности и проверка невалидности ХОТЯ БЫ ОДНОГО ПОЛЯ(блокировать кнопку)
 }
 
-
+setInputEventListeners(validateObj)
 // событие ввода текста
-function createEventListener(inputObject) {
-  inputObject.addEventListener('input', () => {
-    checkCurrentInputValidity();
+function createEventListener(validateObj.inputSelector) {
+  validateObj.inputSelector.addEventListener('input', () => {
+    checkCurrentInputValidity({validateObj.formSelector, validateObj.inputSelector});
     checkAllInputValidity(); // тут нет аргументов потому что я не знаю, что именно мне передавать в данном контексте
   })
 }
