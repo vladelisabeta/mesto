@@ -7,13 +7,6 @@ const validateObj = {
   errorClass: 'popup__error_visible'
 }
 
-// надо сделать чтобы все формы проверялись
-// чтобы адекватно блокировалась кнопка. почему она не блокируется? ошибка логики?
-// checkAllInputValidity - вот тут все плохо
-
-// разобраться с проверкой формы целиком.
-// блокировка кнопки. и checkAllInputValidity (одно и то же)
-
 
 function enableValidation(validateObj) {
   const { formSelector } = validateObj;
@@ -26,78 +19,77 @@ function enableValidation(validateObj) {
   })
 }
 
-
-
 // => ===  вызывает функцию; () === содержит функцию (по факту то же самое._.)
 //enableValidation => setInputEventListeners => createElementListeners => checkCurrentInputValidity(showInputError + hideInputError) + checkAllInputValidity(disableButtonSave)
 
-
-// //функция установки событий на все инпуты в форме. накладывает обработчик события ввода
 function setInputEventListeners(formElement, validateObj) {
   const {
     inputSelector,
-  } = validateObj
-  const formInput = formElement.querySelector(inputSelector);
-  const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
+  } = validateObj;
 
-  //как мне тут повесить на все ИНПУТЫ
-  allInputs.forEach((formInput) => { createEventListener(formElement, validateObj, formInput) });
+  const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
+  allInputs.forEach((formInput) => {
+    createEventListener(validateObj, formInput, formElement, allInputs)
+  }); //тут появляется инпут
 }
 
 // // событие ввода текста
-function createEventListener(formElement, validateObj) {
-  const {
-    inputSelector,
-  } = validateObj;
-  const formInput = formElement.querySelector(inputSelector);
-  const allInputs = Array.from(formElement.querySelectorAll(inputSelector)); //зачем мне тут все ипуты?
+function createEventListener(validateObj, formInput, formElement, allInputs) {
   formInput.addEventListener('input', function () {
-    checkCurrentInputValidity(formElement, validateObj);
-    hasInvalidInput(formElement, validateObj);
+    checkCurrentInputValidity(formInput);
+    hasInvalidInput(validateObj, formInput, formElement);
+    checkAllInputValidity(validateObj, allInputs, formElement);
   })
 }
 
 
-function showInputError(formElement, validateObj, errorMessage) {
+//функция НАЛИЧИЯ невалидного инпута и реакция
+function hasInvalidInput(validateObj, formInput, formElement) {
+  if (checkCurrentInputValidity(formInput)) {
+    showInputError(validateObj, formInput, formInput.validationMessage, formElement);
+  } else {
+    hideInputError(validateObj, formInput, formElement);
+  }
+}
+
+//сюда надо притащить formElement
+function showInputError(validateObj, formInput, errorMessage, formElement) {
   const {
-    inputSelector,
     inputErrorClass,
     errorClass
   } = validateObj;
 
-  const formInput = formElement.querySelector(inputSelector); //input
-  const span = (`.${formInput.name}-error`); // = .name-error
-  const spanErrorOjbect = formElement.querySelector('span');
+  const span = `#${formInput.id}-error`; // #name-error
+  console.log(span)
+
+  const spanErrorElement = formElement.querySelector('span'); // если убрать ковычки, то не может найти ДОМ элемент НУЖНО, ЧТОБЫ ИХ БЫЛО 2???
+  console.log(spanErrorElement)
 
   formInput.classList.add(inputErrorClass);
-  spanErrorOjbect.textContent = errorMessage; // тут будет validation message
-  spanErrorOjbect.classList.add(errorClass); //добавляет на спан класс который показывает его
+  spanErrorElement.textContent = errorMessage; // тут будет validation message
+  spanErrorElement.classList.add(errorClass); //добавляет на спан класс который показывает его
 }
 
 
-
-function hideInputError(formElement, validateObj) {
+//сюда надо притащить formElement. выбирается не тот спан в ДОМ но выводится нужный id
+function hideInputError(validateObj, formInput, formElement) {
   const {
-    inputSelector,
     inputErrorClass,
     errorClass
   } = validateObj
 
-  const formInput = formElement.querySelector(inputSelector);
-  const span = (`.${formInput.name}-error`); // = .name-error
-  const spanErrorOjbect = formElement.querySelector('span');
+  const span = `#${formInput.id}-error`;
+  const spanErrorElement = formElement.querySelector('span');
+  console.log(span)
 
   formInput.classList.remove(inputErrorClass);
-  spanErrorOjbect.classList.remove(errorClass); //удаляет на спан класс который показывает его
-  spanErrorOjbect.textContent = '';
+  spanErrorElement.classList.remove(errorClass); //удаляет на спан класс который показывает его
+  spanErrorElement.textContent = '';
 }
 
+
 // функция проверки конкретного инпута
-function checkCurrentInputValidity(formElement, validateObj) {
-  const {
-    inputSelector,
-  } = validateObj;
-  const formInput = formElement.querySelector(inputSelector);
+function checkCurrentInputValidity(formInput) {
   const formInputNotValid = !formInput.validity.valid
 
   if (formInputNotValid) {
@@ -107,41 +99,26 @@ function checkCurrentInputValidity(formElement, validateObj) {
   }
 };
 
-//функция НАЛИЧИЯ невалидного инпута и реакция
-function hasInvalidInput(formElement, validateObj) {
-  const {
-    inputSelector,
-  } = validateObj;
-  const formInput = formElement.querySelector(inputSelector);
-  if (checkCurrentInputValidity(formElement, validateObj)) {
-    showInputError(formElement, validateObj, formInput.validationMessage);
-  } else {
-    hideInputError(formElement, validateObj);
-  }
-}
+
 
 // функция проверки ВСЕГО и блокировка кнопки. здесь большие проблемы с логикой
-function checkAllInputValidity(formElement, validateObj) {
+function checkAllInputValidity(validateObj, allInputs, formElement) {
   const {
     inputSelector,
   } = validateObj;
-  const formInput = formElement.querySelector(inputSelector);
-  const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
-  const formInputNotValid = !formInput.validity.valid; // константа невалидности инпута
+  // const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
+console.log("it's me checkAllInputValidity")
 
-  allInputs.some((formInputNotValid) => { //если среди всех инпутов есть хоть один невалидный, то надо выключить кнопку
-    disableButtonSave(formElement, validateObj); //где то потом должен быть код, что если все нормально, то кнопку надо включить                      вот где то тут у меня хромает логика
-  })
+//здесь что то не так.
+  if (allInputs.some((formInput) => {!formInput.validity.valid})) {
+    disableButtonSave(validateObj, formElement);
+  } else {
+    enableButtonSave(validateObj, formElement);
+  };
 }
 
-
-// проверить валидность конкретного ипута. возвращать булево значение = checkCurrentInputValidity
-// если есть невалидное поле, тогда выводятся ошибки. если все хорошо - скрываются = hasInvalidInput
-// если есть хоть одно неправильное поле(функция проверки всех полей) - блокируется кнопка = checkAllInputValidity
-
-
 // я не уверена если эти двое работают
-function disableButtonSave(formElement, validateObj) {
+function disableButtonSave(validateObj, formElement) {
   const {
     submitButtonSelector,
     inactiveButtonClass
@@ -153,7 +130,8 @@ function disableButtonSave(formElement, validateObj) {
 }
 
 
-function enableButtonSave(formElement, validateObj) {
+
+function enableButtonSave(validateObj, formElement) {
   const {
     submitButtonSelector,
     inactiveButtonClass
@@ -172,4 +150,4 @@ enableValidation({
   inactiveButtonClass: 'popup__save_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
-});
+})
