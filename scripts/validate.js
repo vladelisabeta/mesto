@@ -38,7 +38,7 @@ function createEventListener(validateObj, formInput, formElement, allInputs) {
   formInput.addEventListener('input', function () {
     checkCurrentInputValidity(formInput);
     hasInvalidInput(validateObj, formInput, formElement);
-    checkAllInputValidity(validateObj, allInputs, formElement);
+    checkAllInputValidity(validateObj, allInputs, formElement); //она не работает
   })
 }
 
@@ -107,10 +107,10 @@ function checkAllInputValidity(validateObj, allInputs, formElement) {
     inputSelector,
   } = validateObj;
   // const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
-console.log("it's me checkAllInputValidity")
+  console.log("it's me checkAllInputValidity")
 
-//здесь что то не так.
-  if (allInputs.some((formInput) => {!formInput.validity.valid})) {
+  //здесь что то не так.
+  if (allInputs.some((formInput) => { !formInput.validity.valid })) {
     disableButtonSave(validateObj, formElement);
   } else {
     enableButtonSave(validateObj, formElement);
@@ -137,6 +137,7 @@ function enableButtonSave(validateObj, formElement) {
     inactiveButtonClass
   } = validateObj;
   const formSaveButton = formElement.querySelector(submitButtonSelector);
+  console.log(formSaveButton)
 
   formSaveButton.removeAttribute('disabled');
   formSaveButton.classList.remove(inactiveButtonClass);

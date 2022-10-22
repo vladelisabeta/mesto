@@ -5,6 +5,5 @@
 }
 
 .popup__save_disabled:hover {
-  opacity: 100%;
-  cursor: none;
+  cursor: default;
 }
