@@ -70,6 +70,7 @@ const profileJob = document.querySelector('.profile__info');
 const formElement = document.querySelector('.popup__form');
 const cardElement = document.querySelector('.popup_cards');
 const formCardPopup = document.querySelector('.popup__form_cards');
+const escButtonCode = 27;
 
 
 ////////////////////////////////////////////////////////////////////
@@ -129,6 +130,16 @@ function deleteCard(button) {
 }
 
 
+//
+function escClosePopup(event){
+  if(event.which === escButtonCode) {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup);
+  }
+}
+
+
+
 // функция добавления новых карточек
 function addNewCard({ name, link }) {
   name = placeInput.value;
@@ -167,13 +178,15 @@ function resetCardsInput() {
 // открыть попап
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened')
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escClosePopup);
 }
 
 // закрыть попап
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escClosePopup)
 }
 
 
