@@ -31,6 +31,7 @@ function setInputEventListeners(formElement, validateObj) {
   allInputs.forEach((formInput) => {
     createEventListener(validateObj, formInput, formElement, allInputs)
   }); //тут появляется инпут
+  checkAllInputValidity(validateObj, allInputs, formElement);
 }
 
 // // событие ввода текста
@@ -38,7 +39,7 @@ function createEventListener(validateObj, formInput, formElement, allInputs) {
   formInput.addEventListener('input', function () {
     checkCurrentInputValidity(formInput);
     hasInvalidInput(validateObj, formInput, formElement, allInputs);
-    // checkAllInputValidity(validateObj, allInputs, formElement); //она не работает
+    checkAllInputValidity(validateObj, allInputs, formElement);
   })
 }
 
@@ -102,18 +103,13 @@ function checkCurrentInputValidity(formInput) {
 };
 
 
-
 // функция проверки ВСЕГО и блокировка кнопки. здесь большие проблемы с логикой
 function checkAllInputValidity(validateObj, allInputs, formElement) {
-  const {
-    inputSelector,
-  } = validateObj;
-  console.log("it's me checkAllInputValidity")
-  if (allInputs.forEach((input) => checkCurrentInputValidity(input))) {
+  if (ifHasInvalidInput(allInputs)) {
     disableButtonSave(validateObj, formElement);
   } else {
     enableButtonSave(validateObj, formElement);
-  };
+  }
 }
 
 
@@ -129,6 +125,11 @@ function disableButtonSave(validateObj, formElement) {
   formSaveButton.classList.add(inactiveButtonClass);
 }
 
+function ifHasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid
+  })
+}
 
 
 function enableButtonSave(validateObj, formElement) {
@@ -168,3 +169,4 @@ const unsetSpanErrorAll = () => {
 }
 
 setSpanErrorAll()
+
