@@ -16,9 +16,9 @@
   padding-right: 0;
 }
 
-.popup__input:not(:first-child) {
-  margin-top: 22px;
-}
+/* .popup__input:not(:first-child) {
+  margin-top: 13px;
+} */
 
 @media screen and (min-width: 768px) {
   .popup__input {

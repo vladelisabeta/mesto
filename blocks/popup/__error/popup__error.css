@@ -4,4 +4,10 @@
   font-size: 12px;
   line-height: 120%;
   color: #FF0000;
+  display: block;
+  margin-top: 5px;
+}
+
+.popup__error:not(:last-of-type) {
+  margin-bottom: 10px;
 }
