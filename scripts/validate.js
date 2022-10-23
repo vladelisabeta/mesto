@@ -37,18 +37,20 @@ function setInputEventListeners(formElement, validateObj) {
 function createEventListener(validateObj, formInput, formElement, allInputs) {
   formInput.addEventListener('input', function () {
     checkCurrentInputValidity(formInput);
-    hasInvalidInput(validateObj, formInput, formElement);
-    checkAllInputValidity(validateObj, allInputs, formElement); //она не работает
+    hasInvalidInput(validateObj, formInput, formElement, allInputs);
+    // checkAllInputValidity(validateObj, allInputs, formElement); //она не работает
   })
 }
 
 
 //функция НАЛИЧИЯ невалидного инпута и реакция
-function hasInvalidInput(validateObj, formInput, formElement) {
+function hasInvalidInput(validateObj, formInput, formElement, allInputs) {
   if (checkCurrentInputValidity(formInput)) {
     showInputError(validateObj, formInput, formInput.validationMessage, formElement);
+    checkAllInputValidity(validateObj, allInputs, formElement);
   } else {
     hideInputError(validateObj, formInput, formElement);
+    checkAllInputValidity(validateObj, allInputs, formElement);
   }
 }
 
@@ -106,15 +108,16 @@ function checkAllInputValidity(validateObj, allInputs, formElement) {
   const {
     inputSelector,
   } = validateObj;
-  // const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
   console.log("it's me checkAllInputValidity")
+  allInputs.forEach((input) => checkCurrentInputValidity(input));
 
-  //здесь что то не так.
-  if (allInputs.some((formInput) => { !formInput.validity.valid })) {
-    disableButtonSave(validateObj, formElement);
-  } else {
-    enableButtonSave(validateObj, formElement);
-  };
+
+  // //здесь что то не так.
+  // if (allInputs.some((formInput) => { !formInput.validity.valid })) {
+  //   disableButtonSave(validateObj, formElement);
+  // } else {
+  //   enableButtonSave(validateObj, formElement);
+  // };
 }
 
 // я не уверена если эти двое работают
@@ -156,7 +159,7 @@ enableValidation({
 const setSpanErrorAll = () => {
   const spans = document.querySelectorAll('.popup__error');
   const allSpans = Array.from(spans);
-  allSpans.forEach((kiss) => {kiss.classList.add('popup__error_visible')})
+  allSpans.forEach((kiss) => { kiss.classList.add('popup__error_visible') })
 }
 
 
@@ -164,7 +167,7 @@ const setSpanErrorAll = () => {
 const unsetSpanErrorAll = () => {
   const spans = document.querySelectorAll('.popup__error');
   const allSpans = Array.from(spans);
-  allSpans.forEach((kiss) => {kiss.classList.remove('popup__error_visible')})
+  allSpans.forEach((kiss) => { kiss.classList.remove('popup__error_visible') })
 }
 
 unsetSpanErrorAll()
