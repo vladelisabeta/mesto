@@ -131,8 +131,8 @@ function deleteCard(button) {
 
 
 //
-function escClosePopup(event){
-  if(event.which === escButtonCode) {
+function escClosePopup(event) {
+  if (event.which === escButtonCode) {
     const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup);
   }
@@ -200,7 +200,17 @@ function submitFormHandler(evt) {
 }
 
 
+// закрытие попапа по клику на оверлей
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')) {
+    closePopup(event.target);
+  }
+});
+
+
+
 // слушатели открытия кнопок /работают
+
 
 buttonEdit.addEventListener('click', function () {
   openPopup(popupEdit);
