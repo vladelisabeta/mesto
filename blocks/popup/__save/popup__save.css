@@ -10,6 +10,7 @@
   font-style: normal;
   font-family: 'Inter';
   line-height: 114%;
+  margin-left: 4px;
 }
 
 .popup__save:hover {
@@ -22,5 +23,6 @@
     padding: 13px 130px;
     margin-top: 48px;
     font-size: 18px;
+    margin-left: 8px;
   }
 }

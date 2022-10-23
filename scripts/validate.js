@@ -109,16 +109,13 @@ function checkAllInputValidity(validateObj, allInputs, formElement) {
     inputSelector,
   } = validateObj;
   console.log("it's me checkAllInputValidity")
-  allInputs.forEach((input) => checkCurrentInputValidity(input));
-
-
-  // //здесь что то не так.
-  // if (allInputs.some((formInput) => { !formInput.validity.valid })) {
-  //   disableButtonSave(validateObj, formElement);
-  // } else {
-  //   enableButtonSave(validateObj, formElement);
-  // };
+  if (allInputs.forEach((input) => checkCurrentInputValidity(input))) {
+    disableButtonSave(validateObj, formElement);
+  } else {
+    enableButtonSave(validateObj, formElement);
+  };
 }
+
 
 // я не уверена если эти двое работают
 function disableButtonSave(validateObj, formElement) {
@@ -170,4 +167,4 @@ const unsetSpanErrorAll = () => {
   allSpans.forEach((kiss) => { kiss.classList.remove('popup__error_visible') })
 }
 
-unsetSpanErrorAll()
+setSpanErrorAll()

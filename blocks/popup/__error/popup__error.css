@@ -6,6 +6,7 @@
   color: #FF0000;
   display: block;
   margin-top: 5px;
+  min-height: 29px;
 }
 
 .popup__error:not(:last-of-type) {
