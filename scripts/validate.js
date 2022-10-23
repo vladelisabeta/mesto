@@ -63,14 +63,12 @@ function showInputError(validateObj, formInput, errorMessage, formElement) {
   } = validateObj;
 
   const span = `#${formInput.id}-error`; // #name-error
-  console.log(span)
 
-  const spanErrorElement = formElement.querySelector('span'); // если убрать ковычки, то не может найти ДОМ элемент НУЖНО, ЧТОБЫ ИХ БЫЛО 2???
-  console.log(spanErrorElement)
+  const spanErrorElement = formElement.querySelector(span);
 
   formInput.classList.add(inputErrorClass);
-  spanErrorElement.textContent = errorMessage; // тут будет validation message
-  spanErrorElement.classList.add(errorClass); //добавляет на спан класс который показывает его
+  spanErrorElement.textContent = errorMessage;
+  spanErrorElement.classList.add(errorClass);
 }
 
 
@@ -82,8 +80,7 @@ function hideInputError(validateObj, formInput, formElement) {
   } = validateObj
 
   const span = `#${formInput.id}-error`;
-  const spanErrorElement = formElement.querySelector('span');
-  console.log(span)
+  const spanErrorElement = formElement.querySelector(span);
 
   formInput.classList.remove(inputErrorClass);
   spanErrorElement.classList.remove(errorClass); //удаляет на спан класс который показывает его
@@ -138,7 +135,6 @@ function enableButtonSave(validateObj, formElement) {
     inactiveButtonClass
   } = validateObj;
   const formSaveButton = formElement.querySelector(submitButtonSelector);
-  console.log(formSaveButton)
 
   formSaveButton.removeAttribute('disabled');
   formSaveButton.classList.remove(inactiveButtonClass);
