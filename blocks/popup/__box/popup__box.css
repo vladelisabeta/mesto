@@ -13,6 +13,6 @@
 @media screen and (min-width: 768px) {
   .popup__box {
     min-width: 500px;
-    min-height: 460px;
+    min-height: 425px;
   }
 }
