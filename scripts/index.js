@@ -30,6 +30,7 @@ const initialCards = [
 const popupEdit = document.querySelector('.popup_edit');
 const popupCards = document.querySelector('.popup_cards');
 const popupImage = document.querySelector('.popup_image');
+const generalPopup = document.querySelector('.popup');
 
 // картинка и текст попапа-картинки
 const dataImagePopup = document.querySelector('.popup__image');
@@ -67,10 +68,9 @@ const linkInput = popupCards.querySelector('.popup__input_type-link');
 // другое
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__info');
-const formElement = document.querySelector('.popup__form');
+const formAbout = document.querySelector('.popup__form');// formAbout
 const cardElement = document.querySelector('.popup_cards');
 const formCardPopup = document.querySelector('.popup__form_cards');
-const escButtonCode = 27;
 
 
 ////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ function deleteCard(button) {
 
 //
 function escClosePopup(event) {
-  if (event.which === escButtonCode) {
+  if (event.key === "Escape") {
     const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup);
   }
@@ -152,7 +152,7 @@ function addNewCard({ name, link }) {
 function addCardSubmit(evt) {
   evt.preventDefault();
   addNewCard({ name, link });
-  resetCardsInput();
+  formCardPopup.reset();
   closePopup(popupCards);
 }
 
@@ -168,11 +168,6 @@ function openImagePopup(card) {
   dataImagePopup.src = imageData;
   dataImagePopup.alt = textData;
   openPopup(popupImage);
-}
-
-// функция ресета
-function resetCardsInput() {
-  formCardPopup.reset();
 }
 
 // открыть попап
@@ -209,6 +204,7 @@ document.addEventListener('click', (event) => {
 
 
 
+
 // слушатели открытия кнопок /работают
 
 
@@ -235,7 +231,7 @@ buttonCloseImage.addEventListener('click', function () {
   closePopup(popupImage)
 })
 
-formElement.addEventListener('submit', submitFormHandler)
+formAbout.addEventListener('submit', submitFormHandler)
 
-cardElement.addEventListener('submit', addCardSubmit)
+formCardPopup.addEventListener('submit', addCardSubmit)
 
