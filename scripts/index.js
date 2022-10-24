@@ -58,6 +58,8 @@ const cardBox = document.querySelector('.place-grid');
 // темплейт
 const templateCard = document.querySelector('.template-card').content;
 
+//кнопка сохранить карточку
+const buttonCardAdd = popupCards.querySelector('.popup__save');
 
 // inputs
 const nameInput = popupEdit.querySelector('.popup__input_type_name');
@@ -71,6 +73,7 @@ const profileJob = document.querySelector('.profile__info');
 const formAbout = document.querySelector('.popup__form');// formAbout
 const cardElement = document.querySelector('.popup_cards');
 const formCardPopup = document.querySelector('.popup__form_cards');
+const allPopups = Array.from(document.querySelectorAll('.popup'));
 
 
 ////////////////////////////////////////////////////////////////////
@@ -175,6 +178,8 @@ function openImagePopup(card) {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escClosePopup);
+  buttonCardAdd.classList.add('popup__save_disabled');
+  buttonCardAdd.setAttribute('disabled', true);
 }
 
 // закрыть попап
@@ -194,19 +199,15 @@ function submitFormHandler(evt) {
   closePopup(popupEdit);
 }
 
+//функция закрытия попапов на клике по оверлей
 
-// закрытие попапа по клику на оверлей
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')) {
+allPopups.forEach((popup) => popup.addEventListener('click', (event) => {
+  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')){
     closePopup(event.target);
   }
-});
-
-
-
+}))
 
 // слушатели открытия кнопок /работают
-
 
 buttonEdit.addEventListener('click', function () {
   openPopup(popupEdit);
@@ -233,5 +234,5 @@ buttonCloseImage.addEventListener('click', function () {
 
 formAbout.addEventListener('submit', submitFormHandler)
 
-formCardPopup.addEventListener('submit', addCardSubmit)
+cardElement.addEventListener('submit', addCardSubmit)
 

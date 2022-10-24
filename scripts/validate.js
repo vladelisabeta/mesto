@@ -96,24 +96,27 @@ function checkCurrentInputValidity(formInput) {
 
 // функция проверки ВСЕГО и блокировка кнопки. здесь большие проблемы с логикой
 function checkAllInputValidity(validateObj, allInputs, formElement) {
+  const {
+    submitButtonSelector
+  } = validateObj
+  const formSaveButton = formElement.querySelector(submitButtonSelector);
+
   if (ReactIfHasInvalidInput(allInputs)) {
-    disableButtonSave(validateObj, formElement);
+    disableButtonSave(validateObj, formSaveButton);
   } else {
-    enableButtonSave(validateObj, formElement);
+    enableButtonSave(validateObj, formSaveButton);
   }
 }
 
 
 // я не уверена если эти двое работают
-function disableButtonSave(validateObj, formElement) {
+function disableButtonSave(validateObj, saveButtonElement) {
   const {
-    submitButtonSelector,
     inactiveButtonClass
   } = validateObj;
-  const formSaveButton = formElement.querySelector(submitButtonSelector);
 
-  formSaveButton.setAttribute('disabled', true);
-  formSaveButton.classList.add(inactiveButtonClass);
+  saveButtonElement.setAttribute('disabled', true);
+  saveButtonElement.classList.add(inactiveButtonClass);
 }
 
 function ReactIfHasInvalidInput(inputList) {
@@ -123,15 +126,13 @@ function ReactIfHasInvalidInput(inputList) {
 }
 
 
-function enableButtonSave(validateObj, formElement) {
+function enableButtonSave(validateObj, saveButtonElement) {
   const {
-    submitButtonSelector,
     inactiveButtonClass
   } = validateObj;
-  const formSaveButton = formElement.querySelector(submitButtonSelector);
 
-  formSaveButton.removeAttribute('disabled');
-  formSaveButton.classList.remove(inactiveButtonClass);
+  saveButtonElement.removeAttribute('disabled');
+  saveButtonElement.classList.remove(inactiveButtonClass);
 }
 
 
