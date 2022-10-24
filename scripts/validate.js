@@ -12,9 +12,6 @@ function enableValidation(validateObj) {
   const { formSelector } = validateObj;
   const allForms = Array.from(document.querySelectorAll(formSelector));
   allForms.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
     setInputEventListeners(formElement, validateObj);
   })
 }
@@ -37,7 +34,6 @@ function setInputEventListeners(formElement, validateObj) {
 // // событие ввода текста
 function createEventListener(validateObj, formInput, formElement, allInputs) {
   formInput.addEventListener('input', function () {
-    checkCurrentInputValidity(formInput);
     hasInvalidInput(validateObj, formInput, formElement, allInputs);
     checkAllInputValidity(validateObj, allInputs, formElement);
   })
@@ -48,10 +44,8 @@ function createEventListener(validateObj, formInput, formElement, allInputs) {
 function hasInvalidInput(validateObj, formInput, formElement, allInputs) {
   if (checkCurrentInputValidity(formInput)) {
     showInputError(validateObj, formInput, formInput.validationMessage, formElement);
-    checkAllInputValidity(validateObj, allInputs, formElement);
   } else {
     hideInputError(validateObj, formInput, formElement);
-    checkAllInputValidity(validateObj, allInputs, formElement);
   }
 }
 
@@ -102,7 +96,7 @@ function checkCurrentInputValidity(formInput) {
 
 // функция проверки ВСЕГО и блокировка кнопки. здесь большие проблемы с логикой
 function checkAllInputValidity(validateObj, allInputs, formElement) {
-  if (ifHasInvalidInput(allInputs)) {
+  if (ReactIfHasInvalidInput(allInputs)) {
     disableButtonSave(validateObj, formElement);
   } else {
     enableButtonSave(validateObj, formElement);
@@ -122,7 +116,7 @@ function disableButtonSave(validateObj, formElement) {
   formSaveButton.classList.add(inactiveButtonClass);
 }
 
-function ifHasInvalidInput(inputList) {
+function ReactIfHasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid
   })
@@ -150,19 +144,19 @@ enableValidation({
   errorClass: 'popup__error_visible'
 })
 
-const setSpanErrorAll = () => {
-  const spans = document.querySelectorAll('.popup__error');
-  const allSpans = Array.from(spans);
-  allSpans.forEach((kiss) => { kiss.classList.add('popup__error_visible') })
-}
+// const setSpanErrorAll = () => {
+//   const spans = document.querySelectorAll('.popup__error');
+//   const allSpans = Array.from(spans);
+//   allSpans.forEach((kiss) => { kiss.classList.add('popup__error_visible') })
+// }
 
+
+// // setSpanErrorAll()
+// const unsetSpanErrorAll = () => {
+//   const spans = document.querySelectorAll('.popup__error');
+//   const allSpans = Array.from(spans);
+//   allSpans.forEach((kiss) => { kiss.classList.remove('popup__error_visible') })
+// }
 
 // setSpanErrorAll()
-const unsetSpanErrorAll = () => {
-  const spans = document.querySelectorAll('.popup__error');
-  const allSpans = Array.from(spans);
-  allSpans.forEach((kiss) => { kiss.classList.remove('popup__error_visible') })
-}
-
-setSpanErrorAll()
 
