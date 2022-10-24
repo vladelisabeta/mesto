@@ -144,7 +144,7 @@ function escClosePopup(event) {
 
 
 // функция добавления новых карточек
-function addNewCard({ name, link }) {
+function addNewCard() {
   name = placeInput.value;
   link = linkInput.value;
   const cardElement = createCard({ name, link });
@@ -154,7 +154,7 @@ function addNewCard({ name, link }) {
 // ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО
 function addCardSubmit(evt) {
   evt.preventDefault();
-  addNewCard({ name, link });
+  addNewCard();
   formCardPopup.reset();
   closePopup(popupCards);
 }
