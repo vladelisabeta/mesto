@@ -173,8 +173,6 @@ function openImagePopup(card) {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escClosePopup);
-  buttonCardAdd.classList.add('popup__save_disabled');
-  buttonCardAdd.setAttribute('disabled', true);
 }
 
 // закрыть попап
@@ -197,7 +195,7 @@ function submitFormHandler(evt) {
 //функция закрытия попапов на клике по оверлей
 
 allPopups.forEach((popup) => popup.addEventListener('click', (event) => {
-  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')){
+  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')) {
     closePopup(event.target);
   }
 }))
@@ -211,7 +209,9 @@ buttonEdit.addEventListener('click', function () {
 })
 
 buttonAdd.addEventListener('click', function () {
-  openPopup(popupCards)
+  openPopup(popupCards);
+  buttonCardAdd.classList.add('popup__save_disabled');
+  buttonCardAdd.setAttribute('disabled', true);
 })
 
 //слушатели закрытия /работают

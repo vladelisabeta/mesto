@@ -120,20 +120,3 @@ enableValidation({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 })
-
-// const setSpanErrorAll = () => {
-//   const spans = document.querySelectorAll('.popup__error');
-//   const allSpans = Array.from(spans);
-//   allSpans.forEach((kiss) => { kiss.classList.add('popup__error_visible') })
-// }
-
-
-// // setSpanErrorAll()
-// const unsetSpanErrorAll = () => {
-//   const spans = document.querySelectorAll('.popup__error');
-//   const allSpans = Array.from(spans);
-//   allSpans.forEach((kiss) => { kiss.classList.remove('popup__error_visible') })
-// }
-
-// setSpanErrorAll()
-
