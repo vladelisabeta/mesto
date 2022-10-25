@@ -143,18 +143,13 @@ function escClosePopup(event) {
 
 
 
-// функция добавления новых карточек
-function addNewCard() {
+// ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО
+function addCardSubmit(evt) {
+  evt.preventDefault();
   name = placeInput.value;
   link = linkInput.value;
   const cardElement = createCard({ name, link });
   renderCard(cardElement, cardBox);
-}
-
-// ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО
-function addCardSubmit(evt) {
-  evt.preventDefault();
-  addNewCard();
   formCardPopup.reset();
   closePopup(popupCards);
 }
@@ -234,5 +229,5 @@ buttonCloseImage.addEventListener('click', function () {
 
 formAbout.addEventListener('submit', submitFormHandler)
 
-cardElement.addEventListener('submit', addCardSubmit)
+formCardPopup.addEventListener('submit', addCardSubmit)
 

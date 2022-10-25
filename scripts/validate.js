@@ -1,12 +1,3 @@
-const validateObj = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
-
 
 function enableValidation(validateObj) {
   const { formSelector } = validateObj;
@@ -22,27 +13,30 @@ function enableValidation(validateObj) {
 function setInputEventListeners(formElement, validateObj) {
   const {
     inputSelector,
+    submitButtonSelector,
   } = validateObj;
 
+  const formSaveButton = formElement.querySelector(submitButtonSelector);
   const allInputs = Array.from(formElement.querySelectorAll(inputSelector));
+
   allInputs.forEach((formInput) => {
-    createEventListener(validateObj, formInput, formElement, allInputs)
+    createEventListener(validateObj, formInput, formElement, allInputs, formSaveButton)
   }); //тут появляется инпут
-  checkAllInputValidity(validateObj, allInputs, formElement);
+  checkAllInputValidity(validateObj, allInputs, formSaveButton);
 }
 
 // // событие ввода текста
-function createEventListener(validateObj, formInput, formElement, allInputs) {
+function createEventListener(validateObj, formInput, formElement, allInputs, formSaveButton) {
   formInput.addEventListener('input', function () {
     hasInvalidInput(validateObj, formInput, formElement, allInputs);
-    checkAllInputValidity(validateObj, allInputs, formElement);
+    checkAllInputValidity(validateObj, allInputs, formSaveButton);
   })
 }
 
 
 //функция НАЛИЧИЯ невалидного инпута и реакция
 function hasInvalidInput(validateObj, formInput, formElement, allInputs) {
-  if (checkCurrentInputValidity(formInput)) {
+  if (!formInput.validity.valid) {
     showInputError(validateObj, formInput, formInput.validationMessage, formElement);
   } else {
     hideInputError(validateObj, formInput, formElement);
@@ -82,26 +76,9 @@ function hideInputError(validateObj, formInput, formElement) {
 }
 
 
-// функция проверки конкретного инпута
-function checkCurrentInputValidity(formInput) {
-  const formInputNotValid = !formInput.validity.valid
-
-  if (formInputNotValid) {
-    return true
-  } else {
-    return false
-  }
-};
-
-
 // функция проверки ВСЕГО и блокировка кнопки. здесь большие проблемы с логикой
-function checkAllInputValidity(validateObj, allInputs, formElement) {
-  const {
-    submitButtonSelector
-  } = validateObj
-  const formSaveButton = formElement.querySelector(submitButtonSelector);
-
-  if (ReactIfHasInvalidInput(allInputs)) {
+function checkAllInputValidity(validateObj, allInputs, formSaveButton) {
+  if (reactIfHasInvalidInput(allInputs)) {
     disableButtonSave(validateObj, formSaveButton);
   } else {
     enableButtonSave(validateObj, formSaveButton);
@@ -110,29 +87,28 @@ function checkAllInputValidity(validateObj, allInputs, formElement) {
 
 
 // я не уверена если эти двое работают
-function disableButtonSave(validateObj, saveButtonElement) {
+function disableButtonSave(validateObj, formSaveButton) {
   const {
     inactiveButtonClass
   } = validateObj;
 
-  saveButtonElement.setAttribute('disabled', true);
-  saveButtonElement.classList.add(inactiveButtonClass);
+  formSaveButton.setAttribute('disabled', true);
+  formSaveButton.classList.add(inactiveButtonClass);
 }
 
-function ReactIfHasInvalidInput(inputList) {
+function reactIfHasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid
   })
 }
 
 
-function enableButtonSave(validateObj, saveButtonElement) {
+function enableButtonSave(validateObj, formSaveButton) {
   const {
     inactiveButtonClass
   } = validateObj;
-
-  saveButtonElement.removeAttribute('disabled');
-  saveButtonElement.classList.remove(inactiveButtonClass);
+  formSaveButton.removeAttribute('disabled');
+  formSaveButton.classList.remove(inactiveButtonClass);
 }
 
 
