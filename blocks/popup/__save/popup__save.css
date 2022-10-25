@@ -3,7 +3,7 @@
   border-radius: 2%;
   background-color: #000;
   color: #fff;
-  margin-top: 45px;
+  margin-top: 11px;
   transition: 0.3s linear;
   font-size: 14px;
   font-weight: 400;
@@ -11,6 +11,7 @@
   font-family: 'Inter';
   line-height: 114%;
   width: 100%;
+  margin-bottom: 25px;
 }
 
 .popup__save:hover {
