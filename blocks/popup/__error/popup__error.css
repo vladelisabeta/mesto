@@ -1,13 +1,14 @@
 .popup__error {
-  opacity: 0;
+  display: none;
   font-weight: 400;
   font-size: 12px;
   line-height: 120%;
   color: #FF0000;
   display: block;
-  margin-top: 10px;
+  margin-top: 5px;
+  min-height: 29px;
 }
 
 .popup__error:not(:last-of-type) {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }

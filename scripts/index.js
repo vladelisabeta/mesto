@@ -132,7 +132,6 @@ function deleteCard(button) {
   buttonDelete.remove()
 }
 
-
 //
 function escClosePopup(event) {
   if (event.key === "Escape") {
@@ -140,7 +139,6 @@ function escClosePopup(event) {
     closePopup(openedPopup);
   }
 }
-
 
 
 // ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО

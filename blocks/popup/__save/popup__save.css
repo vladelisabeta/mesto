@@ -10,7 +10,7 @@
   font-style: normal;
   font-family: 'Inter';
   line-height: 114%;
-  margin-left: 4px;
+  width: 100%;
 }
 
 .popup__save:hover {
@@ -21,8 +21,8 @@
 @media screen and (min-width: 768px) {
   .popup__save {
     padding: 13px 130px;
-    margin-top: 48px;
+    margin-top: 31px;
     font-size: 18px;
-    margin-left: 8px;
+    margin-bottom: 36px;
   }
 }
