@@ -1,3 +1,5 @@
+import { FormValidator } from "./FormValidator.js";
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -75,6 +77,21 @@ const cardElement = document.querySelector('.popup_cards');
 const formCardPopup = document.querySelector('.popup__form_cards');
 const allPopups = Array.from(document.querySelectorAll('.popup'));
 
+
+const validateObj = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
+const formAboutValidate = new FormValidator(validateObj, formAbout)
+const formCardsPopupValidate = new FormValidator(validateObj, formCardPopup)
+
+formAboutValidate.enableValidation()
+formCardsPopupValidate.enableValidation()
 
 ////////////////////////////////////////////////////////////////////
 // функция которая должна рендерить карточки
