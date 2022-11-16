@@ -2,7 +2,7 @@ import {popupImage, openPopup, escClosePopup, closePopup} from './generalData.js
 
 export class Card {
   constructor(data, templateSelector) {
-    this._data
+    this._data = data;
     this._templateCard = document.querySelector(templateSelector).content;
   }
 
