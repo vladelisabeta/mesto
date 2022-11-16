@@ -119,9 +119,9 @@ renderInitialCards(initialCards, cardBox)
 // ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО
 function addCardSubmit(evt) {
   evt.preventDefault();
-  name = placeInput.value;
-  link = linkInput.value;
-  const cardElement = createCard({ name, link });
+  data.name = placeInput.value;
+  data.link = linkInput.value;
+  const cardElement = createCard(data);
   renderCard(cardElement, cardBox);
   formCardPopup.reset();
   closePopup(popupCards);

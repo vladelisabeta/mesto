@@ -6,15 +6,15 @@ export class Card {
     this._templateCard = document.querySelector(templateSelector).content;
   }
 
-   createCard({ name, link }) {
+   createCard(data) {
     const initialCard = this._templateCard.cloneNode(true);
     const nameCard = initialCard.querySelector('.card__title');
     const imageCard = initialCard.querySelector('.card__image');
 
-    imageCard.src = link;
-    nameCard.textContent = name;
+    imageCard.src = data.link;
+    nameCard.textContent = data.name;
 
-    imageCard.alt = name;
+    imageCard.alt = data.name;
 
 
     this._setEventListeners(initialCard);
