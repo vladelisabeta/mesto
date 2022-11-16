@@ -1,4 +1,6 @@
 import { FormValidator } from "./FormValidator.js";
+import { popupImage, openPopup, escClosePopup, closePopup } from './generalData.js';
+import { Card } from './Card.js';
 
 const initialCards = [
   {
@@ -31,7 +33,7 @@ const initialCards = [
 // popups
 const popupEdit = document.querySelector('.popup_edit');
 const popupCards = document.querySelector('.popup_cards');
-const popupImage = document.querySelector('.popup_image');
+// const popupImage = document.querySelector('.popup_image');
 const generalPopup = document.querySelector('.popup');
 
 // картинка и текст попапа-картинки
@@ -58,7 +60,7 @@ const buttonCloseImage = popupImage.querySelector('.popup__button-close');
 const cardBox = document.querySelector('.place-grid');
 
 // темплейт
-const templateCard = document.querySelector('.template-card').content;
+const templateCard = document.querySelector('.template-card').content; //TEMPLATE
 
 //кнопка сохранить карточку
 const buttonCardAdd = popupCards.querySelector('.popup__save');
@@ -96,22 +98,23 @@ formCardsPopupValidate.enableValidation()
 ////////////////////////////////////////////////////////////////////
 // функция которая должна рендерить карточки
 
-function createCard({ name, link }) {
-  const initialCard = templateCard.cloneNode(true);
-  const nameCard = initialCard.querySelector('.card__title');
-  const imageCard = initialCard.querySelector('.card__image');
+// function createCard({ name, link }) {
+//   const initialCard = templateCard.cloneNode(true);
+//   const nameCard = initialCard.querySelector('.card__title');
+//   const imageCard = initialCard.querySelector('.card__image');
 
-  imageCard.src = link;
-  nameCard.textContent = name;
+//   imageCard.src = link;
+//   nameCard.textContent = name;
 
-  imageCard.alt = name;
+//   imageCard.alt = name;
 
 
-  setEventListeners(initialCard);
-  return initialCard;
-}
+//   setEventListeners(initialCard);
+//   return initialCard;
+// }
 
-function renderCard(createCard, cardBox) {
+function renderCard(data, cardBox) {
+  const card = new Card(data)
   cardBox.prepend(createCard);
 }
 
@@ -127,35 +130,35 @@ renderInitialCards(initialCards, cardBox)
 
 // функция для навешивания слушателей
 
-function setEventListeners(newCard) {
-  const buttonDelete = newCard.querySelector('.card__trash');
-  buttonDelete.addEventListener('click', deleteCard);
+// function setEventListeners(newCard) {
+//   const buttonDelete = newCard.querySelector('.card__trash');
+//   buttonDelete.addEventListener('click', deleteCard);
 
-  const buttonLike = newCard.querySelector('.card__heart');
-  buttonLike.addEventListener('click', pressLike);
+//   const buttonLike = newCard.querySelector('.card__heart');
+//   buttonLike.addEventListener('click', pressLike);
 
-  const cardImage = newCard.querySelector('.card__image');
-  cardImage.addEventListener('click', openImagePopup);
-}
+//   const cardImage = newCard.querySelector('.card__image');
+//   cardImage.addEventListener('click', openImagePopup);
+// }
 
-// лайк функция
-function pressLike(buttonLike) {
-  buttonLike.target.classList.toggle('card__heart_active')
-}
+// // лайк функция
+// function pressLike(buttonLike) {
+//   buttonLike.target.classList.toggle('card__heart_active')
+// }
 
-// делит функция
-function deleteCard(button) {
-  const buttonDelete = button.target.closest('.card');
-  buttonDelete.remove()
-}
+// // делит функция
+// function deleteCard(button) {
+//   const buttonDelete = button.target.closest('.card');
+//   buttonDelete.remove()
+// }
 
 //
-function escClosePopup(event) {
-  if (event.key === "Escape") {
-    const openedPopup = document.querySelector('.popup_opened')
-    closePopup(openedPopup);
-  }
-}
+// function escClosePopup(event) {
+//   if (event.key === "Escape") {
+//     const openedPopup = document.querySelector('.popup_opened')
+//     closePopup(openedPopup);
+//   }
+// }
 
 
 // ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО
@@ -169,33 +172,32 @@ function addCardSubmit(evt) {
   closePopup(popupCards);
 }
 
-
 // функция для открытия попапа с картинкой
 
-function openImagePopup(card) {
-  const cardImage = card.target;
-  const imageData = cardImage.src;
-  const textData = cardImage.alt;
+// function openImagePopup(card) {
+//   const cardImage = card.target;
+//   const imageData = cardImage.src;
+//   const textData = cardImage.alt;
 
-  textImagePopup.textContent = textData;
-  dataImagePopup.src = imageData;
-  dataImagePopup.alt = textData;
-  openPopup(popupImage);
-}
+//   textImagePopup.textContent = textData;
+//   dataImagePopup.src = imageData;
+//   dataImagePopup.alt = textData;
+//   openPopup(popupImage);
+// }
 
 // открыть попап
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', escClosePopup);
-}
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', escClosePopup);
+// }
 
 // закрыть попап
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escClosePopup)
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', escClosePopup)
+// }
 
 
 // превент дефолт, переписка профиля и закрытие попап
