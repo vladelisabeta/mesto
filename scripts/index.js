@@ -98,9 +98,9 @@ formCardsPopupValidate.enableValidation()
 
 function renderCard(data, cardBox) {
   const card = new Card(data, '.template-card')
-  const initialCard = card.createCard;
+  const newCard = card.createCard(data);
 
-  cardBox.prepend(initialCard);
+  cardBox.prepend(newCard);
 }
 
 
