@@ -1,58 +1,53 @@
-import {popupImage, openPopup, escClosePopup, closePopup} from './generalData.js'
+import { popupImage, openPopup } from './generalData.js'
 
 export class Card {
   constructor(data, templateSelector) {
     this._data = data;
-    this._templateCard = document.querySelector(templateSelector).content;
+    this._cardElement = document
+      .querySelector(templateSelector)
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
+
+    this._imageCard = this._cardElement.querySelector('.card__image');
+    this._buttonDelete = this._cardElement.querySelector('.card__trash');
+    this._buttonLike = this._cardElement.querySelector('.card__heart');
   }
 
-   createCard(data) {
-    const initialCard = this._templateCard.cloneNode(true);
-    const nameCard = initialCard.querySelector('.card__title');
-    const imageCard = initialCard.querySelector('.card__image');
+  createCard() {
+    const nameCard = this._cardElement.querySelector('.card__title');
+    nameCard.textContent = this._data.name;
 
-    imageCard.src = data.link;
-    nameCard.textContent = data.name;
+    this._imageCard.src = this._data.link;
+    this._imageCard.alt = this._data.name;
 
-    imageCard.alt = data.name;
+    this._setEventListeners();
 
-
-    this._setEventListeners(initialCard);
-    return initialCard;
+    return this._cardElement;
   }
 
-  _setEventListeners(newCard) {
-    const buttonDelete = newCard.querySelector('.card__trash');
-    buttonDelete.addEventListener('click', this._deleteCard);
-
-    const buttonLike = newCard.querySelector('.card__heart');
-    buttonLike.addEventListener('click', this._pressLike);
-
-    const cardImage = newCard.querySelector('.card__image');
-    cardImage.addEventListener('click', this._openImagePopup);
+  _setEventListeners() {
+    this._buttonDelete.addEventListener('click', () => this._deleteCard());
+    this._buttonLike.addEventListener('click', () => this._pressLike());
+    this._imageCard.addEventListener('click', () => this._openImagePopup(this._data));
   }
 
-  // лайк функция
-  _pressLike(buttonLike) {
-    buttonLike.target.classList.toggle('card__heart_active')
+  _pressLike() {
+    this._buttonLike.classList.toggle('card__heart_active');
   }
 
-  // делит функция
-  _deleteCard(button) {
-    const buttonDelete = button.target.closest('.card');
-    buttonDelete.remove()
+  _deleteCard() {
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 
-   _openImagePopup(card) {
-    const cardImage = card.target;
-    const imageData = cardImage.src;
-    const textData = cardImage.alt;
+  _openImagePopup(data) {
+    const textImagePopup = popupImage.querySelector('.popup__image-text');
+    const dataImagePopup = popupImage.querySelector('.popup__image');
 
-    textImagePopup.textContent = textData;
-    dataImagePopup.src = imageData;
-    dataImagePopup.alt = textData;
-    openPopup(popupImage); //не относится к карточке
+    textImagePopup.textContent = data.name;
+    dataImagePopup.src = data.link;
+    dataImagePopup.alt = data.name;
+    openPopup(popupImage);
   }
-
-
 }

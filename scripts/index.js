@@ -98,36 +98,31 @@ formCardsPopupValidate.enableValidation()
 
 function renderCard(data, cardBox) {
   const card = new Card(data, '.template-card')
-  const newCard = card.createCard(data);
+  const newCard = card.createCard();
 
   cardBox.prepend(newCard);
 }
 
-
 function renderInitialCards(initialCards, cardBox) {
   initialCards.forEach((item) => {
-    const cardElement = createCard(item);
-    renderCard(cardElement, cardBox)
+    renderCard(item, cardBox)
   })
 }
 
 renderInitialCards(initialCards, cardBox)
 
 
-
-
 // ФУНКЦИЯ САБМИТА И СБОРА ВСЕГО
 function addCardSubmit(evt) {
   evt.preventDefault();
-  data.name = placeInput.value;
-  data.link = linkInput.value;
-  const cardElement = createCard(data);
-  renderCard(cardElement, cardBox);
+  const data = {
+    name: placeInput.value,
+    link: linkInput.value
+  }
+  renderCard(data, cardBox);
   formCardPopup.reset();
   closePopup(popupCards);
 }
-
-
 
 // превент дефолт, переписка профиля и закрытие попап
 
