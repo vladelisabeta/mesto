@@ -2,6 +2,10 @@ export class FormValidator {
   constructor(validateObj, formElement) {
     this._formElement = formElement;
     this._validateObj = validateObj;
+
+    this._formSaveButton = this._formElement.querySelector(this._validateObj.submitButtonSelector);
+    this._allInputs = Array.from(this._formElement.querySelectorAll(this._validateObj.inputSelector));
+
   }
 
   enableValidation() {
@@ -9,49 +13,46 @@ export class FormValidator {
   }
 
   _setInputEventListeners() {
-    const formSaveButton = this._formElement.querySelector(this._validateObj.submitButtonSelector);
-    const allInputs = Array.from(this._formElement.querySelectorAll(this._validateObj.inputSelector));
-
-    allInputs.forEach((formInput) => {
-      this._createEventListener(formInput, allInputs, formSaveButton)
+    this._allInputs.forEach((formInput) => {
+      this._setInputEventListener(formInput)
     });
-    this._checkAllInputValidity(allInputs, formSaveButton);
+    this._checkAllInputValidity();
   }
 
-  _createEventListener(formInput, allInputs, formSaveButton) {
+  _setInputEventListener(formInput) { // _createEventListener // _setEventForInput
     formInput.addEventListener('input', () => {
-      this._hasInvalidInput(formInput);
-      this._checkAllInputValidity(allInputs, formSaveButton);
+      this._toggleInputErrorState(formInput);
+      this._checkAllInputValidity();
     })
   }
 
 
-  _checkAllInputValidity(allInputs, formSaveButton) {
-    if (this._reactIfHasInvalidInput(allInputs)) {
-      this._disableButtonSave(formSaveButton);
+  _checkAllInputValidity() {
+    if (this._hasInvalidInput()) {
+      this._disableButtonSave();
     } else {
-      this._enableButtonSave(formSaveButton);
+      this._enableButtonSave();
     }
   }
 
-  _reactIfHasInvalidInput(allInputs) {
-    return allInputs.some((inputElement) => {
+  _hasInvalidInput() { //_reactIfHasInvalidInput // _checkIfHasInvalidInput
+    return this._allInputs.some((inputElement) => {
       return !inputElement.validity.valid
     })
   }
 
-  _disableButtonSave(formSaveButton) {
-    formSaveButton.setAttribute('disabled', true);
-    formSaveButton.classList.add(this._validateObj.inactiveButtonClass);
+  _disableButtonSave() {
+    this._formSaveButton.setAttribute('disabled', true);
+    this._formSaveButton.classList.add(this._validateObj.inactiveButtonClass);
   }
 
-  _enableButtonSave(formSaveButton) {
-    formSaveButton.removeAttribute('disabled');
-    formSaveButton.classList.remove(this._validateObj.inactiveButtonClass);
+  _enableButtonSave() {
+    this._formSaveButton.removeAttribute('disabled');
+    this._formSaveButton.classList.remove(this._validateObj.inactiveButtonClass);
   }
 
 
-  _hasInvalidInput(formInput) {
+  _toggleInputErrorState(formInput) { // _hasInvalidInput // _reactInvalidInput
     if (!formInput.validity.valid) {
       this._showInputError(formInput, formInput.validationMessage);
     } else {
