@@ -33,8 +33,7 @@ const initialCards = [
 // popups
 const popupEdit = document.querySelector('.popup_edit');
 const popupCards = document.querySelector('.popup_cards');
-// const popupImage = document.querySelector('.popup_image');
-const generalPopup = document.querySelector('.popup');
+
 
 // картинка и текст попапа-картинки
 const dataImagePopup = document.querySelector('.popup__image');
@@ -47,11 +46,9 @@ const buttonAdd = document.querySelector('.profile__add-button');
 
 // кнопки попап едит
 const buttonCloseEdit = popupEdit.querySelector('.popup__button-close');
-const buttonSaveEdit = popupEdit.querySelector('.popup__save');
 
 // кнопки попап адд
 const buttonCloseCards = popupCards.querySelector('.popup__button-close');
-const buttonSaveCards = popupCards.querySelector('.popup__save');
 
 // кнопка закрыть попап картинки
 const buttonCloseImage = popupImage.querySelector('.popup__button-close');
@@ -126,7 +123,7 @@ function addCardSubmit(evt) {
 
 // превент дефолт, переписка профиля и закрытие попап
 
-function submitFormHandler(evt) {
+function submitFormAboutHandler(evt) {
   evt.preventDefault();
   profileJob.textContent = jobInput.value;
   profileName.textContent = nameInput.value;
@@ -149,11 +146,13 @@ buttonEdit.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
 })
 
-buttonAdd.addEventListener('click', function () {
+buttonAdd.addEventListener('click', () => {
   openPopup(popupCards);
-  buttonCardAdd.classList.add('popup__save_disabled');
-  buttonCardAdd.setAttribute('disabled', true);
+  formCardsPopupValidate.disableButtonSave();
 })
+
+
+
 
 //слушатели закрытия /работают
 buttonCloseEdit.addEventListener('click', function () {
@@ -168,7 +167,7 @@ buttonCloseImage.addEventListener('click', function () {
   closePopup(popupImage)
 })
 
-formAbout.addEventListener('submit', submitFormHandler)
+formAbout.addEventListener('submit', submitFormAboutHandler)
 
 formCardPopup.addEventListener('submit', addCardSubmit)
 

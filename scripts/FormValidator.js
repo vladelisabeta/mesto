@@ -29,7 +29,7 @@ export class FormValidator {
 
   _checkAllInputValidity() {
     if (this._hasInvalidInput()) {
-      this._disableButtonSave();
+      this.disableButtonSave();
     } else {
       this._enableButtonSave();
     }
@@ -41,7 +41,7 @@ export class FormValidator {
     })
   }
 
-  _disableButtonSave() {
+  disableButtonSave() {
     this._formSaveButton.setAttribute('disabled', true);
     this._formSaveButton.classList.add(this._validateObj.inactiveButtonClass);
   }
