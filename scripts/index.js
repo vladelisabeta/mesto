@@ -44,20 +44,8 @@ const textImagePopup = document.querySelector('.popup__image-text');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
-// кнопки попап едит
-const buttonCloseEdit = popupEdit.querySelector('.popup__button-close');
-
-// кнопки попап адд
-const buttonCloseCards = popupCards.querySelector('.popup__button-close');
-
-// кнопка закрыть попап картинки
-const buttonCloseImage = popupImage.querySelector('.popup__button-close');
-
 // контейнер
 const cardBox = document.querySelector('.place-grid');
-
-// темплейт
-const templateCard = document.querySelector('.template-card').content; //TEMPLATE
 
 //кнопка сохранить карточку
 const buttonCardAdd = popupCards.querySelector('.popup__save');
@@ -74,7 +62,7 @@ const profileJob = document.querySelector('.profile__info');
 const formAbout = document.querySelector('.popup__form');// formAbout
 const cardElement = document.querySelector('.popup_cards');
 const formCardPopup = document.querySelector('.popup__form_cards');
-const allPopups = Array.from(document.querySelectorAll('.popup'));
+const allPopups = document.querySelectorAll('.popup');
 
 
 const validateObj = {
@@ -133,8 +121,8 @@ function submitFormAboutHandler(evt) {
 //функция закрытия попапов на клике по оверлей
 
 allPopups.forEach((popup) => popup.addEventListener('click', (event) => {
-  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')) {
-    closePopup(event.target);
+  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__button-close')) {
+    closePopup(event.target.closest('.popup'));
   }
 }))
 
@@ -151,23 +139,6 @@ buttonAdd.addEventListener('click', () => {
   formCardsPopupValidate.disableButtonSave();
 })
 
-
-
-
-//слушатели закрытия /работают
-buttonCloseEdit.addEventListener('click', function () {
-  closePopup(popupEdit)
-})
-
-buttonCloseCards.addEventListener('click', function () {
-  closePopup(popupCards)
-})
-
-buttonCloseImage.addEventListener('click', function () {
-  closePopup(popupImage)
-})
-
 formAbout.addEventListener('submit', submitFormAboutHandler)
 
 formCardPopup.addEventListener('submit', addCardSubmit)
-

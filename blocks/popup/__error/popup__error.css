@@ -15,7 +15,3 @@
     max-width: 325px;
   }
 }
-
-.popup__error:not(:last-of-type) {
-  margin-bottom: 5px;
-}

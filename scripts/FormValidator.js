@@ -80,6 +80,5 @@ export class FormValidator {
     spanErrorElement.textContent = '';
   }
 
-
 }
 
