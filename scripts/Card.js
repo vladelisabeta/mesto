@@ -26,10 +26,10 @@ export class Card {
 
   _generateCard() {
     const generatedCard = document
-    .querySelector(this._templateSelector)
-    .content
-    .querySelector('.card')
-    .cloneNode(true);
+      .querySelector(this._templateSelector)
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
 
     return generatedCard
   }
@@ -47,15 +47,9 @@ export class Card {
   _deleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
+    this._buttonDelete = null;
+    this._buttonLike = null;
+    this._imageCard = null;
   }
-
-  // _openImagePopup(data) {
-  //   const textImagePopup = popupImage.querySelector('.popup__image-text');
-  //   const dataImagePopup = popupImage.querySelector('.popup__image');
-
-  //   textImagePopup.textContent = data.name;
-  //   dataImagePopup.src = data.link;
-  //   dataImagePopup.alt = data.name;
-  //   openPopup(popupImage);
-  // }
 }
+
