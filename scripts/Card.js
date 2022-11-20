@@ -1,21 +1,19 @@
-import { popupImage, openPopup } from './generalData.js'
+// import { popupImage, openPopup } from './generalData.js'
 
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openPopup) {
     this._data = data;
-    this._cardElement = document
-      .querySelector(templateSelector)
-      .content
-      .querySelector('.card')
-      .cloneNode(true);
+    this._templateSelector = templateSelector;
+  }
+
+  createCard() {
+    this._cardElement = this._generateCard();
 
     this._imageCard = this._cardElement.querySelector('.card__image');
     this._buttonDelete = this._cardElement.querySelector('.card__trash');
     this._buttonLike = this._cardElement.querySelector('.card__heart');
-  }
-
-  createCard() {
     const nameCard = this._cardElement.querySelector('.card__title');
+
     nameCard.textContent = this._data.name;
 
     this._imageCard.src = this._data.link;
@@ -24,6 +22,16 @@ export class Card {
     this._setEventListeners();
 
     return this._cardElement;
+  }
+
+  _generateCard() {
+    const generatedCard = document
+    .querySelector(this._templateSelector)
+    .content
+    .querySelector('.card')
+    .cloneNode(true);
+
+    return generatedCard
   }
 
   _setEventListeners() {
