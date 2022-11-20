@@ -1,9 +1,9 @@
-// import { popupImage, openPopup } from './generalData.js'
 
 export class Card {
-  constructor(data, templateSelector, openPopup) {
+  constructor(data, templateSelector, openImagePopup) {
     this._data = data;
     this._templateSelector = templateSelector;
+    this._openImagePopup = openImagePopup;
   }
 
   createCard() {
@@ -49,13 +49,13 @@ export class Card {
     this._cardElement = null;
   }
 
-  _openImagePopup(data) {
-    const textImagePopup = popupImage.querySelector('.popup__image-text');
-    const dataImagePopup = popupImage.querySelector('.popup__image');
+  // _openImagePopup(data) {
+  //   const textImagePopup = popupImage.querySelector('.popup__image-text');
+  //   const dataImagePopup = popupImage.querySelector('.popup__image');
 
-    textImagePopup.textContent = data.name;
-    dataImagePopup.src = data.link;
-    dataImagePopup.alt = data.name;
-    openPopup(popupImage);
-  }
+  //   textImagePopup.textContent = data.name;
+  //   dataImagePopup.src = data.link;
+  //   dataImagePopup.alt = data.name;
+  //   openPopup(popupImage);
+  // }
 }

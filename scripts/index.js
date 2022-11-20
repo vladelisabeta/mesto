@@ -1,33 +1,7 @@
 import { FormValidator } from "./FormValidator.js";
-import { popupImage, openPopup, escClosePopup, closePopup } from './generalData.js';
+import { popupImage, openPopup, closePopup } from './generalData.js';
 import { Card } from './Card.js';
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import {initialCards, validateObj} from './objects.js';
 
 
 // popups
@@ -64,15 +38,7 @@ const cardElement = document.querySelector('.popup_cards');
 const formCardPopup = document.querySelector('.popup__form_cards');
 const allPopups = document.querySelectorAll('.popup');
 
-
-const validateObj = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
+//code
 
 const formAboutValidate = new FormValidator(validateObj, formAbout)
 const formCardsPopupValidate = new FormValidator(validateObj, formCardPopup)
@@ -82,7 +48,7 @@ formCardsPopupValidate.enableValidation()
 
 
 function renderCard(data, cardBox) {
-  const card = new Card(data, '.template-card')
+  const card = new Card(data, '.template-card', openImagePopup)
   const newCard = card.createCard();
 
   cardBox.prepend(newCard);
@@ -125,6 +91,18 @@ allPopups.forEach((popup) => popup.addEventListener('click', (event) => {
     closePopup(event.target.closest('.popup'));
   }
 }))
+
+
+function openImagePopup(data) {
+  const textImagePopup = popupImage.querySelector('.popup__image-text');
+  const dataImagePopup = popupImage.querySelector('.popup__image');
+
+  textImagePopup.textContent = data.name;
+  dataImagePopup.src = data.link;
+  dataImagePopup.alt = data.name;
+  openPopup(popupImage);
+}
+
 
 // слушатели открытия кнопок /работают
 
