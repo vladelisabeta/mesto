@@ -13,6 +13,7 @@ export class FormValidator {
   }
 
   _setInputEventListeners() {
+    this._formElement.addEventListener('submit', (event) => event.preventDefault())
     this._allInputs.forEach((formInput) => {
       this._setInputEventListener(formInput)
     });

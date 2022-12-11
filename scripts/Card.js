@@ -14,10 +14,10 @@ export class Card {
     this._buttonLike = this._cardElement.querySelector('.card__heart');
     const nameCard = this._cardElement.querySelector('.card__title');
 
-    nameCard.textContent = this._data.name;
+    nameCard.textContent = this._data.place;
 
     this._imageCard.src = this._data.link;
-    this._imageCard.alt = this._data.name;
+    this._imageCard.alt = this._data.place;
 
     this._setEventListeners();
 
