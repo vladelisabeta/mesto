@@ -1,9 +1,9 @@
 
 export class Card {
-  constructor(data, templateSelector, openImagePopup) {
+  constructor(data, templateSelector, handleImageClick) {
     this._data = data;
     this._templateSelector = templateSelector;
-    this._openImagePopup = openImagePopup;
+    this._handleImageClick = handleImageClick;
   }
 
   createCard() {
@@ -35,16 +35,16 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._buttonDelete.addEventListener('click', () => this._deleteCard());
-    this._buttonLike.addEventListener('click', () => this._pressLike());
-    this._imageCard.addEventListener('click', () => this._openImagePopup(this._data));
+    this._buttonDelete.addEventListener('click', () => this._handleDeleteCard());
+    this._buttonLike.addEventListener('click', () => this._handleCardLike());
+    this._imageCard.addEventListener('click', () => this._handleImageClick(this._data));
   }
 
-  _pressLike() {
+  _handleCardLike() {
     this._buttonLike.classList.toggle('card__heart_active');
   }
 
-  _deleteCard() {
+  _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
     this._buttonDelete = null;

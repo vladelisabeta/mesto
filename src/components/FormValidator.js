@@ -1,10 +1,10 @@
 export class FormValidator {
-  constructor(validateObj, formElement) {
+  constructor(validationConfig, formElement) {
     this._formElement = formElement;
-    this._validateObj = validateObj;
+    this._validationConfig = validationConfig;
 
-    this._formSaveButton = this._formElement.querySelector(this._validateObj.submitButtonSelector);
-    this._allInputs = Array.from(this._formElement.querySelectorAll(this._validateObj.inputSelector));
+    this._formSaveButton = this._formElement.querySelector(this._validationConfig.submitButtonSelector);
+    this._allInputs = Array.from(this._formElement.querySelectorAll(this._validationConfig.inputSelector));
 
   }
 
@@ -44,12 +44,12 @@ export class FormValidator {
 
   disableButtonSave() {
     this._formSaveButton.setAttribute('disabled', true);
-    this._formSaveButton.classList.add(this._validateObj.inactiveButtonClass);
+    this._formSaveButton.classList.add(this._validationConfig.inactiveButtonClass);
   }
 
   _enableButtonSave() {
     this._formSaveButton.removeAttribute('disabled');
-    this._formSaveButton.classList.remove(this._validateObj.inactiveButtonClass);
+    this._formSaveButton.classList.remove(this._validationConfig.inactiveButtonClass);
   }
 
 
@@ -67,17 +67,17 @@ export class FormValidator {
 
     const spanErrorElement = this._formElement.querySelector(span);
 
-    formInput.classList.add(this._validateObj.inputErrorClass);
+    formInput.classList.add(this._validationConfig.inputErrorClass);
     spanErrorElement.textContent = errorMessage;
-    spanErrorElement.classList.add(this._validateObj.errorClass);
+    spanErrorElement.classList.add(this._validationConfig.errorClass);
   }
 
   _hideInputError(formInput) {
     const span = `#${formInput.id}-error`;
     const spanErrorElement = this._formElement.querySelector(span);
 
-    formInput.classList.remove(this._validateObj.inputErrorClass);
-    spanErrorElement.classList.remove(this._validateObj.errorClass);
+    formInput.classList.remove(this._validationConfig.inputErrorClass);
+    spanErrorElement.classList.remove(this._validationConfig.errorClass);
     spanErrorElement.textContent = '';
   }
 

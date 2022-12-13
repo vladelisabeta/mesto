@@ -7,6 +7,7 @@ JavaScript
 Адаптивная верстка
 оформление файловой структуры БЭМ Nested
 Классы
+webpack
 
 ### Ссылка на проект:
 https://vladelisabeta.github.io/mesto/

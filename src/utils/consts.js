@@ -1,4 +1,3 @@
-export const popupImage = document.querySelector('.popup_image');
 // кнопки page
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');

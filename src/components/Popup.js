@@ -5,25 +5,24 @@ export class Popup {
 
   open() {
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', () => { this._escClosePopup() });
+    document.addEventListener('keydown', this._handleCloseByEsc.bind(this)); // возмножно придется байндить
   }
 
   close() {
     this._popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', () => { this._escClosePopup() }) // if anything - delete brackets
+    document.removeEventListener('keydown', this._handleCloseByEsc.bind(this)) // if anything - delete brackets
   }
 
   setEventListeners() {
     this._popup.addEventListener('click', (event) => {
       if (event.target.classList.contains('popup') || event.target.classList.contains('popup__button-close')) {
-        this.close(event.target.closest('.popup'));
+        this.close();
       }
     })
   }
 
-  _escClosePopup() {
+  _handleCloseByEsc() {
     if (event.key === "Escape") {
-      this._popup.classList.contains('.popup_opened')
       this.close();
     }
   }
