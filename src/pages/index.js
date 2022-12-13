@@ -41,11 +41,7 @@ const userInfo = new UserInfo({ userNameSelector: '.profile__title', userAboutSe
 //функции
 
 function renderCard(data) { //renderer function для интитиал карточек
-  const card = new Card(data, '.template-card', () => {
-    popupWithImage.open(data);
-  }) //
-  const newCard = card.createCard();
-  cardsSection.addItem(newCard);
+  cardsSection.addItem(createCard(data));
 }
 
 
@@ -58,10 +54,6 @@ function createCard(data) { //функция для создания карто�
 }
 
 
-function addCard(data) { //функция которая добавляет карточку на страницу
-  cardsSection.addItem(data)
-}
-
 
 // рендер начальных карточек
 cardsSection.renderItems()
@@ -73,8 +65,7 @@ formCardsPopupValidate.enableValidation()
 
 // ФУНКЦИЯ САБМИТА КАРТОЧКИ
 function handleCardFormSubmit(data) {
-  const cardReady = createCard(data);
-  addCard(cardReady);
+  renderCard(data);
   cardAddPopupForm.close();
   formCardsPopupValidate.disableButtonSave();
 }
