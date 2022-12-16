@@ -54,3 +54,9 @@
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__save/popup__save.css);
 @import url(../blocks/popup/__save/_disabled/popup__save_disabled.css);
+/* еще импорты */
+@import url(../blocks/popup/_confirm-delete/popup_confirm-delete.css);
+@import url(../blocks/popup/__button-close/_confirm/popup__button-close_confirm.css);
+@import url(../blocks/popup/__container/_confirm/popup__container_confirm.css);
+@import url(../blocks/popup/__save/_confirm/popup__save_confirm.css);
+@import url(../blocks/popup/__text/_confirm/popup__text_confirm.css);

@@ -15,6 +15,7 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 
 import "./index.css";
+import { Popup } from "../components/Popup.js";
 
 //code
 
@@ -93,4 +94,14 @@ buttonEdit.addEventListener('click', () => {
   nameInput.value = data.name;
   jobInput.value = data.info;
   popupWithFormAbout.open();
+})
+
+
+
+// РАБОТА НАД СЫРЫМ КОДОМ
+
+const popupConfirm = new Popup('.popup_confirm-delete')
+popupConfirm.setEventListeners();
+document.querySelector('.profile__avatar').addEventListener('click', () => {
+  popupConfirm.open()
 })

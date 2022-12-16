@@ -1,0 +1,6 @@
+@media screen and (min-width: 768px) {
+  .popup__button-close_confirm {
+    margin-right: 0;
+    margin-top: 86px;
+  }
+}
