@@ -29,10 +29,14 @@ export class Api {
       })
   }
 
-  editProfile() {
+  editProfile(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.info
+      })
     })
       .then(res => {
         if (res.ok) {

@@ -84,9 +84,20 @@ popupWithFormAbout.setEventListeners()
 
 // функция сабмита профиля
 function handleProfileFormSubmit(data) {
-  userInfo.setUserInfo(data);
-  popupWithFormAbout.close();
+  api.editProfile(data)
+    .then(res => {
+      userInfo.setUserInfo(data);
+      popupWithFormAbout.close();
+    })
 }
+
+
+// // функция сабмита профиля
+// function handleProfileFormSubmit(data) {
+//   userInfo.setUserInfo(data);
+//   popupWithFormAbout.close();
+// }
+
 
 // СЕКЦИЯ ЛИСТЕНЕРОВ
 
@@ -137,7 +148,7 @@ const api = new Api({
 api.getUserProfile()
   .then(res => {
     console.log('answer', res)
-    userInfo.setUserInfo(res)
+    userInfo.setUserInfo({ name: res.name, info: res.about })
   })
 
 api.getInitialCards()
