@@ -16,7 +16,8 @@ export class UserInfo {
     return this._userInfo
   }
 
-  setUserInfo(data) { 
+  setUserInfo(data) {
+    data.info = data.about
     this._userName.textContent = data.name
     this._userAbout.textContent = data.info
   }

@@ -13,11 +13,14 @@ import { UserInfo } from "../components/UserInfo.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { Popup } from "../components/Popup.js";
+import { Api } from "../components/Api.js";
+
 
 import "./index.css";
-import { Popup } from "../components/Popup.js";
 import "../images/pensil.svg";
 import "../images/autumn_tea.jpg"
+
 
 //code
 
@@ -58,8 +61,8 @@ function createCard(data) { //функция для создания карто�
 
 
 
-// рендер начальных карточек
-cardsSection.renderItems()
+// рендер начальных карточек // ВОЗМОЖНО ОНИ И НЕ НУЖНЫ
+// cardsSection.renderItems()
 
 // ИНЕЙБЛ ВАЛИДЕЙШОН
 formAboutValidate.enableValidation()
@@ -115,3 +118,32 @@ popupAvatarUpdate.setEventListeners();
 document.querySelector('.profile__avatar').addEventListener('click', () => {
   popupAvatarUpdate.open()
 })
+
+
+// рАБОТА НАД АПИ
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-54',
+  headers: {
+    authorization: '164f802e-3ded-431e-9f1e-8df3253cf571',
+    // authorization: '164f802e-3ded-431e-9f1e-8df3253cf571',
+    'Content-Type': 'application/json'
+  }
+});
+
+
+//это выставляет имя пройфала с сервера( ???)
+
+api.getUserProfile()
+  .then(res => {
+    console.log('answer', res)
+    userInfo.setUserInfo(res)
+  })
+
+api.getInitialCards()
+  .then(cardData => {
+    cardData.forEach(data => {
+      // console.log(data) // тут объекты карточек
+      renderCard({ place: data.name, link: data.link })
+    })
+  })

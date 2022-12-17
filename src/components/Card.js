@@ -4,6 +4,7 @@ export class Card {
     this._data = data;
     this._templateSelector = templateSelector;
     this._handleImageClick = handleImageClick;
+
   }
 
   createCard() {
@@ -17,7 +18,8 @@ export class Card {
     nameCard.textContent = this._data.place;
 
     this._imageCard.src = this._data.link;
-    this._imageCard.alt = this._data.place;
+    this._imageCard.alt = this._data.place; //this was place
+
 
     this._setEventListeners();
 
