@@ -1,0 +1,7 @@
+@media screen and (min-width: 768px) {
+  .popup__button-close_upload-avatar {
+    margin-right: 0;
+    margin-top: 40px;
+  }
+}
+/* !!! */

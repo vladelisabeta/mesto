@@ -10,6 +10,7 @@
 
 /* PROFILE */
 @import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__image-container/profile__image-container.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__edit-container/profile__edit-container.css);
 @import url(../blocks/profile/__title/profile__title.css);
@@ -60,3 +61,9 @@
 @import url(../blocks/popup/__container/_confirm/popup__container_confirm.css);
 @import url(../blocks/popup/__save/_confirm/popup__save_confirm.css);
 @import url(../blocks/popup/__text/_confirm/popup__text_confirm.css);
+
+/* импорт для апдейт аватар */
+@import url(../blocks/popup/__container/_upload-avatar/popup__container_upload-avatar.css);
+@import url(../blocks/popup/__save/_upload-avatar/popup__save_upload-avatar);
+@import url(../blocks/popup/__button-close/_upload-avatar/popup__button-close_upload-avatar.css);
+@import url(../blocks/popup/__text/_upload-avatar/popup__text_upload-avatar.css);

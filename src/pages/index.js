@@ -16,6 +16,8 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 
 import "./index.css";
 import { Popup } from "../components/Popup.js";
+import "../images/pensil.svg";
+import "../images/autumn_tea.jpg"
 
 //code
 
@@ -102,6 +104,14 @@ buttonEdit.addEventListener('click', () => {
 
 const popupConfirm = new Popup('.popup_confirm-delete')
 popupConfirm.setEventListeners();
+// document.querySelector('.profile__avatar').addEventListener('click', () => {
+//   popupConfirm.open()
+// })
+
+
+const popupAvatarUpdate = new PopupWithForm('.popup_upload-avatar')
+popupAvatarUpdate.setEventListeners();
+
 document.querySelector('.profile__avatar').addEventListener('click', () => {
-  popupConfirm.open()
+  popupAvatarUpdate.open()
 })

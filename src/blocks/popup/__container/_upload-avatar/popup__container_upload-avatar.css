@@ -1,0 +1,5 @@
+@media screen and (min-width: 768px) {
+  .popup__container_upload-avatar {
+    min-height: 272px;
+  }
+}

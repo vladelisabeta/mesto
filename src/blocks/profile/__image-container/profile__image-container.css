@@ -1,0 +1,9 @@
+.profile__image-container {
+  grid-row-start: 2;
+}
+
+.profile__image-container:hover {
+  background-image: url("../../../images/pensil.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
