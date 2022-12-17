@@ -46,6 +46,43 @@ export class Api {
   }
 
 
+  addCardToServer(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.place,
+        link: data.link,
+        likes: data.likes,
+        _id: data._id
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
+      })
+  }
+
+  deleteCard(data) {
+    return fetch(`${this._baseUrl}/cards/${data._id}`, {
+      method: "DELETE",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.place,
+        link: data.link,
+        likes: data.likes,
+        _id: data._id
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
+      })
+  }
+
+
 
 }
 

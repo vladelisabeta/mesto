@@ -1,10 +1,15 @@
 
 export class Card {
-  constructor(data, templateSelector, handleImageClick) {
+  constructor(data, templateSelector, handleImageClick, handleDeleteClick) {
     this._data = data;
     this._templateSelector = templateSelector;
     this._handleImageClick = handleImageClick;
+    this._handleDeleteClick = handleDeleteClick;
 
+    this._likes = data.likes;
+    this._cardId = data._id
+
+    // console.log(' THIS IS WHAT U BEDD', this._cardId)
   }
 
   createCard() {
@@ -20,7 +25,7 @@ export class Card {
     this._imageCard.src = this._data.link;
     this._imageCard.alt = this._data.place; //this was place
 
-
+    this._pressLike();
     this._setEventListeners();
 
     return this._cardElement;
@@ -37,7 +42,7 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._buttonDelete.addEventListener('click', () => this._handleDeleteCard());
+    this._buttonDelete.addEventListener('click', () => this._handleDeleteClick(this._cardId));
     this._buttonLike.addEventListener('click', () => this._handleCardLike());
     this._imageCard.addEventListener('click', () => this._handleImageClick(this._data));
   }
@@ -52,6 +57,11 @@ export class Card {
     this._buttonDelete = null;
     this._buttonLike = null;
     this._imageCard = null;
+  }
+
+  _pressLike() {
+    const counterLikes = this._cardElement.querySelector('.card__like-count');
+    counterLikes.textContent = this._likes.length;
   }
 }
 

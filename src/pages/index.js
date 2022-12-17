@@ -54,6 +54,9 @@ function renderCard(data) { //renderer function для интитиал карт
 function createCard(data) { //функция для создания карточки
   const card = new Card(data, '.template-card', () => {
     popupWithImage.open(data);
+  }, (id) => {
+    console.log('iDDDDD', id) // открывает айди. значит, можно удалять.
+    popupConfirm.open()
   }) //
   const newCard = card.createCard();
   return newCard;
@@ -71,10 +74,15 @@ formCardsPopupValidate.enableValidation()
 
 // ФУНКЦИЯ САБМИТА КАРТОЧКИ
 function handleCardFormSubmit(data) {
-  renderCard(data);
-  cardAddPopupForm.close();
+  api.addCardToServer(data)
+    .then(res => {
+      console.log('resultat', res)
+      renderCard(data);
+      cardAddPopupForm.close();
+    })
   formCardsPopupValidate.disableButtonSave();
 }
+
 
 // SET POPUP LISTENERS
 
@@ -112,15 +120,17 @@ buttonEdit.addEventListener('click', () => {
   popupWithFormAbout.open();
 })
 
-
+//УДАЛЕНИЕ ПО КНОПКЕ
+const buttonDeleteConfirm = document.querySelector('.popup__save_confirm')
+buttonDeleteConfirm.addEventListener('click', () => {
+  
+})
 
 // РАБОТА НАД СЫРЫМ КОДОМ
 
 const popupConfirm = new Popup('.popup_confirm-delete')
 popupConfirm.setEventListeners();
-// document.querySelector('.profile__avatar').addEventListener('click', () => {
-//   popupConfirm.open()
-// })
+
 
 
 const popupAvatarUpdate = new PopupWithForm('.popup_upload-avatar')
@@ -154,7 +164,11 @@ api.getUserProfile()
 api.getInitialCards()
   .then(cardData => {
     cardData.forEach(data => {
-      // console.log(data) // тут объекты карточек
-      renderCard({ place: data.name, link: data.link })
+      console.log(data) // тут объекты карточек
+      renderCard({ place: data.name, link: data.link, likes: data.likes, _id: data._id})
     })
   })
+
+
+
+
