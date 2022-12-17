@@ -64,16 +64,10 @@ export class Api {
       })
   }
 
-  deleteCard(data) {
-    return fetch(`${this._baseUrl}/cards/${data._id}`, {
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-      body: JSON.stringify({
-        name: data.place,
-        link: data.link,
-        likes: data.likes,
-        _id: data._id
-      })
     })
       .then(res => {
         if (res.ok) {
@@ -82,6 +76,29 @@ export class Api {
       })
   }
 
+  removeLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
+      })
+  }
+
+  addLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
+      })
+  }
 
 
 }
