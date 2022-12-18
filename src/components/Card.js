@@ -27,9 +27,10 @@ export class Card {
     nameCard.textContent = this._data.place;
 
     this._imageCard.src = this._data.link;
-    this._imageCard.alt = this._data.place; //this was place
+    this._imageCard.alt = this._data.place;
 
     this.setLikes(this._likes);
+    this._checkToShowTrashIcon()
 
     this._setEventListeners();
 
@@ -66,10 +67,6 @@ export class Card {
     this._buttonLike.addEventListener('click', () => this._handleLikeClick(this._cardId));
     this._imageCard.addEventListener('click', () => this._handleImageClick(this._data));
   }
-
-  // _handleCardLike() {
-  //   this._buttonLike.classList.toggle('card__heart_active');
-  // }
 
   _colorHeartBlack() {
     this._buttonLike.classList.add('card__heart_active')

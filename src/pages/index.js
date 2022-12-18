@@ -40,7 +40,7 @@ const popupWithFormAbout = new PopupWithForm('.popup_edit', handleProfileFormSub
 const cardsSection = new Section({ items: initialCards, renderer: renderCard }, '.place-grid')
 
 //создание класса
-const userInfo = new UserInfo({ userNameSelector: '.profile__title', userAboutSelector: '.profile__info' })
+const userInfo = new UserInfo({ userNameSelector: '.profile__title', userAboutSelector: '.profile__info', userAvatarSelector: '.profile__avatar' })
 
 
 
@@ -55,10 +55,10 @@ function createCard(data) { //функция для создания карто�
   const card = new Card(data, '.template-card', () => {
     popupWithImage.open(data);
   },
-    (id) => {
+    (id) => { // переписать все в функции и передать по нормальному. АЙДИ НАХОДИТСЯ ВНУТРИ КАРД.ДЖС
       console.log(id) // открывает айди. значит, можно удалять.
       popupConfirm.open();
-      popupConfirm.takeItHere(() => {
+      popupConfirm.takeItHere(() => { // ВОТ ТУТ ЧТО ТО УЖАСНОЕ ПРОИСХОДИТ. точно ренейм
         api.deleteCard(id)
           .then(res => {
             card.deleteCardFromDOM()
@@ -66,7 +66,7 @@ function createCard(data) { //функция для создания карто�
           })
       })
     },
-    (id) => {
+    (id) => { //добавить или удалить лайк функция
       if (card.checkIfLiked()) {
         api.removeLike(id)
           .then(res => {
@@ -78,7 +78,6 @@ function createCard(data) { //функция для создания карто�
             card.setLikes(res.likes)
           })
       }
-
 
     })
   const newCard = card.createCard();
@@ -119,12 +118,14 @@ function handleProfileFormSubmit(data) {
     })
 }
 
-
-// // функция сабмита профиля
-// function handleProfileFormSubmit(data) {
-//   userInfo.setUserInfo(data);
-//   popupWithFormAbout.close();
-// }
+function handleProfileAvatarSubmit(data) {
+  api.updateAvatar(data)
+    .then(res => {
+      console.log(data)
+      userInfo.setUserInfo(data)
+      popupAvatarUpdate.close()
+    })
+}
 
 
 // СЕКЦИЯ ЛИСТЕНЕРОВ
@@ -147,11 +148,9 @@ const buttonDeleteConfirm = document.querySelector('.popup__save_confirm')
 // РАБОТА НАД СЫРЫМ КОДОМ
 
 
-
-
-
-const popupAvatarUpdate = new PopupWithForm('.popup_upload-avatar')
+const popupAvatarUpdate = new PopupWithForm('.popup_upload-avatar', handleProfileAvatarSubmit)
 popupAvatarUpdate.setEventListeners();
+
 
 document.querySelector('.profile__avatar').addEventListener('click', () => {
   popupAvatarUpdate.open()
@@ -159,7 +158,7 @@ document.querySelector('.profile__avatar').addEventListener('click', () => {
 
 
 const popupConfirm = new PopupConfirmDelete('.popup_confirm-delete', () => {
-  console.log('привет я устал поговорите мной')
+  console.log('привет я устала поговорите мной')
 })
 popupConfirm.setEventListeners();
 
@@ -179,10 +178,11 @@ const api = new Api({
 
 let myProfileId
 
+//профиль на сервере
 api.getUserProfile()
   .then(res => {
     console.log('answer', res)
-    userInfo.setUserInfo({ name: res.name, info: res.about })
+    userInfo.setUserInfo({ name: res.name, info: res.about, avatar: res.avatar })
 
     myProfileId = res._id
   })

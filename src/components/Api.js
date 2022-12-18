@@ -72,7 +72,7 @@ export class Api {
       .then(res => {
         if (res.ok) {
           return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
+        } else { Promise.reject(`Ошибка: ${res.status} ты не удалил карточку`) }
       })
   }
 
@@ -84,7 +84,7 @@ export class Api {
       .then(res => {
         if (res.ok) {
           return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
+        } else { Promise.reject(`Ошибка: ${res.status} ты не дизлайкнул карточку`) }
       })
   }
 
@@ -96,10 +96,24 @@ export class Api {
       .then(res => {
         if (res.ok) {
           return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
+        } else { Promise.reject(`Ошибка: ${res.status} ты не лайкнул карточку`) }
       })
   }
 
+  updateAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else { Promise.reject(`Ошибка: ${res.status} ты без аватарки`) }
+      })
+  }
 
 }
 
