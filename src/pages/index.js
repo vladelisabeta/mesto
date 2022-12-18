@@ -45,7 +45,7 @@ const cardAddPopupForm = new PopupWithForm('.popup_cards', handleCardFormSubmit)
 const popupWithFormAbout = new PopupWithForm('.popup_edit', handleProfileFormSubmit)
 
 
-const cardsSection = new Section({ items: initialCards, renderer: renderCard }, '.place-grid')
+const cardsSection = new Section({ items: initialCards, renderer: createCard }, '.place-grid')
 
 //создание класса
 const userInfo = new UserInfo({ userNameSelector: '.profile__title', userAboutSelector: '.profile__info', userAvatarSelector: '.profile__avatar' })
@@ -54,17 +54,11 @@ const userInfo = new UserInfo({ userNameSelector: '.profile__title', userAboutSe
 
 //функции
 
-function renderCard(data) { //renderer function для интитиал карточек
-  cardsSection.addItem(createCard({
-    place: data.name,
-    link: data.link,
-    likes: data.likes,
-    _id: data._id,
-    myProfileId: myProfileId,
-    ownerId: data.owner._id
-  }));
-}
 
+function renderCard(data) {
+  console.log(data)
+  cardsSection.addItem(createCard(data))
+}
 
 
 function createCard(data) { //функция для создания карточки ORIGINAL
@@ -107,8 +101,8 @@ function createCard(data) { //функция для создания карто�
 function handleCardFormSubmit(data) {
   cardAddPopupForm.renderLoading(true, 'Создание...')
   api.addCardToServer(data)
-    .then(data => {
-      renderCard(data);
+    .then(res => {
+      renderCard(remakeData(res));
       cardAddPopupForm.close(); // карточка закрытие
       formCardsPopupValidate.disableButtonSave();
     })
@@ -142,6 +136,16 @@ function handleProfileAvatarSubmit(data) {
     .finally(() => popupAvatarUpdate.renderLoading(false, 'Сохранить'))
 }
 
+function remakeData(data) {
+  return {
+    place: data.name,
+    link: data.link,
+    likes: data.likes,
+    _id: data._id,
+    myProfileId: myProfileId,
+    ownerId: data.owner._id
+  }
+}
 
 // SET POPUP LISTENERS
 
@@ -202,8 +206,8 @@ Promise.all([api.getUserProfile(), api.getInitialCards()])
     userInfo.updateUserAvatar({ avatar: res.avatar })
     myProfileId = res._id
 
-    const cardsSection = new Section({ items: cardData, renderer: renderCard }, '.place-grid')
-    cardsSection.renderItems()
+    cardsSection.renderItems(cardData.map(remakeData))
+
   })
   .catch((error) => console.log(error, 'CUSTON ERROR'))
 
