@@ -28,6 +28,10 @@ const formAboutValidate = new FormValidator(validationConfig, formAbout)
 const formCardsPopupValidate = new FormValidator(validationConfig, formCardPopup)
 
 
+// ИНЕЙБЛ ВАЛИДЕЙШОН
+formAboutValidate.enableValidation()
+formCardsPopupValidate.enableValidation()
+
 
 //POPUP CLASSES
 const popupWithImage = new PopupWithImage('.popup_image')
@@ -54,41 +58,11 @@ function renderCard(data) { //renderer function для интитиал карт
 function createCard(data) { //функция для создания карточки ORIGINAL
   const card = new Card(data, '.template-card', () => {
     popupWithImage.open(data);
-  },
-    (id) => { // переписать все в функции и передать по нормальному. АЙДИ НАХОДИТСЯ ВНУТРИ КАРД.ДЖС
-      console.log(id) // открывает айди. значит, можно удалять.
-      popupConfirm.open();
-      popupConfirm.takeItHere(() => { // ВОТ ТУТ ЧТО ТО УЖАСНОЕ ПРОИСХОДИТ. точно ренейм
-        api.deleteCard(id)
-          .then(res => {
-            card.deleteCardFromDOM()
-            popupConfirm.close()
-          })
-      })
-    },
-    (id) => { //добавить или удалить лайк функция
-      if (card.checkIfLiked()) {
-        api.removeLike(id)
-          .then(res => {
-            card.setLikes(res.likes)
-          })
-      } else {
-        api.addLike(id)
-          .then(res => {
-            card.setLikes(res.likes)
-          })
-      }
-
-    })
+  }, eraseCard, manageLikes)
   const newCard = card.createCard();
   return newCard;
 }
 
-
-
-// ИНЕЙБЛ ВАЛИДЕЙШОН
-formAboutValidate.enableValidation()
-formCardsPopupValidate.enableValidation()
 
 
 // ФУНКЦИЯ САБМИТА КАРТОЧКИ
@@ -102,12 +76,30 @@ function handleCardFormSubmit(data) {
   formCardsPopupValidate.disableButtonSave();
 }
 
+function eraseCard(id) {
+  popupConfirm.open();
+  popupConfirm.takeItHere(() => {
+    api.deleteCard(id)
+      .then(res => {
+        card.deleteCardFromDOM()
+        popupConfirm.close()
+      })
+  })
+}
 
-// SET POPUP LISTENERS
-
-cardAddPopupForm.setEventListeners()
-popupWithImage.setEventListeners()
-popupWithFormAbout.setEventListeners()
+function manageLikes(id) {
+  if (card.checkIfLiked()) {
+    api.removeLike(id)
+      .then(res => {
+        card.setLikes(res.likes)
+      })
+  } else {
+    api.addLike(id)
+      .then(res => {
+        card.setLikes(res.likes)
+      })
+  }
+}
 
 // функция сабмита профиля
 function handleProfileFormSubmit(data) {
@@ -122,10 +114,28 @@ function handleProfileAvatarSubmit(data) {
   api.updateAvatar(data)
     .then(res => {
       console.log(data)
-      userInfo.setUserInfo(data)
+      userInfo.updateUserAvatar(data)
       popupAvatarUpdate.close()
     })
 }
+
+
+// function handleProfileAvatarSubmit(data) {
+//   api.updateAvatar(data)
+//     .then(res => {
+//       console.log(data)
+//       userInfo.setUserInfo(data)
+//       popupAvatarUpdate.close()
+//     })
+// }
+
+
+// SET POPUP LISTENERS
+
+cardAddPopupForm.setEventListeners()
+popupWithImage.setEventListeners()
+popupWithFormAbout.setEventListeners()
+
 
 
 // СЕКЦИЯ ЛИСТЕНЕРОВ
@@ -183,7 +193,7 @@ api.getUserProfile()
   .then(res => {
     console.log('answer', res)
     userInfo.setUserInfo({ name: res.name, info: res.about, avatar: res.avatar })
-
+    userInfo.updateUserAvatar({avatar: res.avatar})
     myProfileId = res._id
   })
 

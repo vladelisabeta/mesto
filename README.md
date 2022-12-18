@@ -8,6 +8,7 @@ JavaScript
 оформление файловой структуры БЭМ Nested
 Классы
 webpack
+работа с API
 
 ### Ссылка на проект:
 https://vladelisabeta.github.io/mesto/

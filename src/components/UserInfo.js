@@ -1,5 +1,5 @@
 export class UserInfo {
-  constructor({ userNameSelector, userAboutSelector, userAvatarSelector}) {
+  constructor({ userNameSelector, userAboutSelector, userAvatarSelector }) {
     this._userNameSelector = userNameSelector;
     this._userAboutSelector = userAboutSelector;
     this._userAvatarSelector = userAvatarSelector
@@ -25,8 +25,13 @@ export class UserInfo {
 
     this._userName.textContent = data.name
     this._userAbout.textContent = data.info
+  }
+
+  updateUserAvatar(data) {
+
     this._userAvatar.src = data.avatar
   }
+
 
 }
 

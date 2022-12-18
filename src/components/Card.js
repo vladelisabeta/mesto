@@ -40,7 +40,7 @@ export class Card {
   _checkToShowTrashIcon() {
     //установка или не установка мусорки
     if (this._ownerId !== this._myProfileId) {
-      this._cardElement.querySelector('.card__trash').style.dispay = 'none'
+      this._cardElement.querySelector('.card__trash').classList.add('card__trash_hidden')
     }
   }
 
