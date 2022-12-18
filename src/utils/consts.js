@@ -11,3 +11,4 @@ export const formAbout = document.querySelector('.popup__form');// formAbout
 export const formCardPopup = document.querySelector('.popup__form_cards');
 export const nameInput = popupEdit.querySelector('.popup__input_type_name');
 export const jobInput = popupEdit.querySelector('.popup__input_type_info');
+export const formAvatar = document.querySelector('.popup__form_avatar');// formAvatar

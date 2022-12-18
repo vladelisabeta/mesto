@@ -6,6 +6,8 @@ export class PopupWithForm extends Popup {
     this._handleSubmit = handleSubmit; // функция
 
     this._form = this._popup.querySelector('.popup__form');
+    this._submitButton = this._form.querySelector('.popup__save');
+
     this._allInputs = [...this._form.querySelectorAll('.popup__input')]
   }
 
@@ -27,6 +29,14 @@ export class PopupWithForm extends Popup {
       this._handleSubmit(this._getInputValues());
     })
     this.close();
+  }
+
+  waitingServerAnswer(isLoading, text) {
+    if (isLoading) {
+      this._submitButton.textContent = text
+    } else {
+      this._submitButton.textContent = text
+    }
   }
 
 }

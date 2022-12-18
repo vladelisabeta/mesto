@@ -11,9 +11,6 @@ export class Card {
     this._cardId = data._id;
     this._myProfileId = data.myProfileId;
     this._ownerId = data.ownerId;
-
-    // console.log(this._myProfileId, 'PROFILE')
-    // console.log(this._ownerId, 'OWNER')
   }
 
   createCard() {

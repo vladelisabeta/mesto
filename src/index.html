@@ -15,7 +15,8 @@
 
     <main class="content">
       <section class="profile">
-        <div class="profile__image-container"><img src="<%=require('./images/kusto.jpg')%>" alt="Аватар профиля" class="profile__avatar"></div>
+        <div class="profile__image-container"><img src="<%=require('./images/kusto.jpg')%>" alt="Аватар профиля"
+            class="profile__avatar"></div>
         <!-- <img src="<%=require('./images/kusto.jpg')%>" alt="Аватар профиля" class="profile__avatar"> -->
         <div class="profile__edit-container">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -123,6 +124,7 @@
           <form class="popup__form popup__form_avatar" name="upload" novalidate>
             <input type="url" name="avatar" id="avatar" class="popup__input popup__input_type-link"
               placeholder="Ссылка на картинку" required>
+            <span class="popup__error" id="avatar-error"></span>
             <button class="popup__save popup__save_upload-avatar" type="submit">Сохранить</button>
           </form>
         </div>

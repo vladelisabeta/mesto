@@ -7,7 +7,7 @@ export class PopupConfirmDelete extends Popup {
     this._handleDeleteFromServer = func;
   }
 
-  takeItHere(apiDelete) {
+  createDelete(apiDelete) {
     this._handleDeleteFromServer = apiDelete;
   }
 
@@ -15,7 +15,6 @@ export class PopupConfirmDelete extends Popup {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      console.log(this._handleDeleteFromServer)
       this._handleDeleteFromServer();
     })
     // this.close();

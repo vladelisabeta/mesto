@@ -7,13 +7,14 @@ import {
   formCardPopup,
   nameInput,
   jobInput,
+  formAvatar,
 } from "../utils/consts.js";
 import { initialCards, validationConfig } from "../utils/objects.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
-import { Popup } from "../components/Popup.js";
+// import { Popup } from "../components/Popup.js";
 import { Api } from "../components/Api.js";
 import { PopupConfirmDelete } from "../components/PopupConfirmDelete.js";
 
@@ -26,11 +27,13 @@ import "../images/autumn_tea.jpg"
 
 const formAboutValidate = new FormValidator(validationConfig, formAbout)
 const formCardsPopupValidate = new FormValidator(validationConfig, formCardPopup)
+const formAvatarValidate = new FormValidator(validationConfig, formAvatar)
 
 
 // ИНЕЙБЛ ВАЛИДЕЙШОН
 formAboutValidate.enableValidation()
 formCardsPopupValidate.enableValidation()
+formAvatarValidate.enableValidation()
 
 
 //POPUP CLASSES
@@ -55,79 +58,97 @@ function renderCard(data) { //renderer function для интитиал карт
 }
 
 
+// function createCard(data) { //функция для создания карточки ORIGINAL
+//   const card = new Card(data, '.template-card', () => {
+//     popupWithImage.open(data);
+//   }, eraseCard, manageLikes)
+//   const newCard = card.createCard();
+//   return newCard;
+// }
+
 function createCard(data) { //функция для создания карточки ORIGINAL
-  const card = new Card(data, '.template-card', () => {
-    popupWithImage.open(data);
-  }, eraseCard, manageLikes)
+  const card = new Card(data, '.template-card'
+    , () => {
+      popupWithImage.open(data);
+    },
+    (id) => {
+      popupConfirm.open();
+      popupConfirm.createDelete(() => { // ВОТ ТУТ ЧТО ТО УЖАСНОЕ ПРОИСХОДИТ. точно ренейм
+        api.deleteCard(id)
+          .then(res => {
+            card.deleteCardFromDOM()
+            popupConfirm.close()
+          })
+          .catch((error) => console.log(error))
+      })
+    },
+    (id) => {
+      if (card.checkIfLiked()) {
+        api.removeLike(id)
+          .then(res => {
+            card.setLikes(res.likes)
+          })
+          .catch((error) => console.log(error))
+      } else {
+        api.addLike(id)
+          .then(res => {
+            card.setLikes(res.likes)
+          })
+          .catch((error) => console.log(error))
+      }
+
+    })
   const newCard = card.createCard();
   return newCard;
 }
 
-
-
 // ФУНКЦИЯ САБМИТА КАРТОЧКИ
 function handleCardFormSubmit(data) {
+  cardAddPopupForm.waitingServerAnswer(true, 'Создание...')
   api.addCardToServer(data)
     .then(res => {
-      console.log('resultat', res)
-      renderCard(data);
-      cardAddPopupForm.close();
+      // console.log('resultat', res)
+      renderCard({
+        place: res.name,
+        link: res.link,
+        likes: res.likes,
+        _id: res._id,
+        myProfileId: myProfileId,
+        ownerId: res.owner._id
+      });
+
+      cardAddPopupForm.close(); // карточка закрытие
     })
+    .catch((error) => console.log(error))
+    .finally(() => cardAddPopupForm.waitingServerAnswer(false, 'Создать'))
+
   formCardsPopupValidate.disableButtonSave();
 }
 
-function eraseCard(id) {
-  popupConfirm.open();
-  popupConfirm.takeItHere(() => {
-    api.deleteCard(id)
-      .then(res => {
-        card.deleteCardFromDOM()
-        popupConfirm.close()
-      })
-  })
-}
-
-function manageLikes(id) {
-  if (card.checkIfLiked()) {
-    api.removeLike(id)
-      .then(res => {
-        card.setLikes(res.likes)
-      })
-  } else {
-    api.addLike(id)
-      .then(res => {
-        card.setLikes(res.likes)
-      })
-  }
-}
 
 // функция сабмита профиля
 function handleProfileFormSubmit(data) {
+  popupWithFormAbout.waitingServerAnswer(true, 'Сохранение...')
   api.editProfile(data)
     .then(res => {
       userInfo.setUserInfo(data);
       popupWithFormAbout.close();
     })
+    .catch((error) => console.log(error))
+    .finally(() => popupWithFormAbout.waitingServerAnswer(false, 'Сохранить'))
 }
 
 function handleProfileAvatarSubmit(data) {
+  popupAvatarUpdate.waitingServerAnswer(true, 'Сохранение...')
   api.updateAvatar(data)
     .then(res => {
-      console.log(data)
       userInfo.updateUserAvatar(data)
       popupAvatarUpdate.close()
     })
+    .catch((error) => console.log(error))
+    .finally(() => popupAvatarUpdate.waitingServerAnswer(false, 'Сохранить'))
+  formAvatarValidate.disableButtonSave();
 }
-
-
-// function handleProfileAvatarSubmit(data) {
-//   api.updateAvatar(data)
-//     .then(res => {
-//       console.log(data)
-//       userInfo.setUserInfo(data)
-//       popupAvatarUpdate.close()
-//     })
-// }
 
 
 // SET POPUP LISTENERS
@@ -151,11 +172,8 @@ buttonEdit.addEventListener('click', () => {
   popupWithFormAbout.open();
 })
 
-//УДАЛЕНИЕ ПО КНОПКЕ
-const buttonDeleteConfirm = document.querySelector('.popup__save_confirm')
 
-
-// РАБОТА НАД СЫРЫМ КОДОМ
+// РАБОТА НАД  КОДОМ
 
 
 const popupAvatarUpdate = new PopupWithForm('.popup_upload-avatar', handleProfileAvatarSubmit)
@@ -183,27 +201,28 @@ const api = new Api({
   }
 });
 
-
 //это выставляет имя пройфала с сервера( ???)
-
 let myProfileId
 
-//профиль на сервере
-api.getUserProfile()
-  .then(res => {
-    console.log('answer', res)
+Promise.all([api.getUserProfile(), api.getInitialCards()])
+  .then(([res, cardData]) => {
     userInfo.setUserInfo({ name: res.name, info: res.about, avatar: res.avatar })
-    userInfo.updateUserAvatar({avatar: res.avatar})
+    userInfo.updateUserAvatar({ avatar: res.avatar })
     myProfileId = res._id
-  })
 
-api.getInitialCards()
-  .then(cardData => {
     cardData.forEach(data => {
-      // console.log(data) // тут объекты карточек
-      renderCard({ place: data.name, link: data.link, likes: data.likes, _id: data._id, myProfileId: myProfileId, ownerId: data.owner._id })
+      renderCard({
+        place: data.name,
+        link: data.link,
+        likes: data.likes,
+        _id: data._id,
+        myProfileId: myProfileId,
+        ownerId: data.owner._id
+      })
     })
   })
+  .catch((error) => console.log(error))
+
 
 
 
