@@ -8,6 +8,7 @@ import {
   nameInput,
   jobInput,
   formAvatar,
+  profileAvatar,
 } from "../utils/consts.js";
 import { initialCards, validationConfig } from "../utils/objects.js";
 import { UserInfo } from "../components/UserInfo.js";
@@ -54,17 +55,17 @@ const userInfo = new UserInfo({ userNameSelector: '.profile__title', userAboutSe
 //функции
 
 function renderCard(data) { //renderer function для интитиал карточек
-  cardsSection.addItem(createCard(data));
+  cardsSection.addItem(createCard({
+    place: data.name,
+    link: data.link,
+    likes: data.likes,
+    _id: data._id,
+    myProfileId: myProfileId,
+    ownerId: data.owner._id
+  }));
 }
 
 
-// function createCard(data) { //функция для создания карточки ORIGINAL
-//   const card = new Card(data, '.template-card', () => {
-//     popupWithImage.open(data);
-//   }, eraseCard, manageLikes)
-//   const newCard = card.createCard();
-//   return newCard;
-// }
 
 function createCard(data) { //функция для создания карточки ORIGINAL
   const card = new Card(data, '.template-card'
@@ -79,7 +80,7 @@ function createCard(data) { //функция для создания карто�
             card.deleteCardFromDOM()
             popupConfirm.close()
           })
-          .catch((error) => console.log(error))
+          .catch((error) => console.log(error, 'CUSTON ERROR'))
       })
     },
     (id) => {
@@ -88,13 +89,13 @@ function createCard(data) { //функция для создания карто�
           .then(res => {
             card.setLikes(res.likes)
           })
-          .catch((error) => console.log(error))
+          .catch((error) => console.log(error, 'CUSTON ERROR'))
       } else {
         api.addLike(id)
           .then(res => {
             card.setLikes(res.likes)
           })
-          .catch((error) => console.log(error))
+          .catch((error) => console.log(error, 'CUSTON ERROR'))
       }
 
     })
@@ -104,50 +105,41 @@ function createCard(data) { //функция для создания карто�
 
 // ФУНКЦИЯ САБМИТА КАРТОЧКИ
 function handleCardFormSubmit(data) {
-  cardAddPopupForm.waitingServerAnswer(true, 'Создание...')
+  cardAddPopupForm.renderLoading(true, 'Создание...')
   api.addCardToServer(data)
-    .then(res => {
-      // console.log('resultat', res)
-      renderCard({
-        place: res.name,
-        link: res.link,
-        likes: res.likes,
-        _id: res._id,
-        myProfileId: myProfileId,
-        ownerId: res.owner._id
-      });
-
+    .then(data => {
+      renderCard(data);
       cardAddPopupForm.close(); // карточка закрытие
+      formCardsPopupValidate.disableButtonSave();
     })
-    .catch((error) => console.log(error))
-    .finally(() => cardAddPopupForm.waitingServerAnswer(false, 'Создать'))
+    .catch((error) => console.log(error, 'CUSTON ERROR'))
+    .finally(() => cardAddPopupForm.renderLoading(false, 'Создать'))
 
-  formCardsPopupValidate.disableButtonSave();
 }
 
 
 // функция сабмита профиля
 function handleProfileFormSubmit(data) {
-  popupWithFormAbout.waitingServerAnswer(true, 'Сохранение...')
+  popupWithFormAbout.renderLoading(true, 'Сохранение...')
   api.editProfile(data)
     .then(res => {
       userInfo.setUserInfo(data);
       popupWithFormAbout.close();
     })
-    .catch((error) => console.log(error))
-    .finally(() => popupWithFormAbout.waitingServerAnswer(false, 'Сохранить'))
+    .catch((error) => console.log(error, 'CUSTON ERROR'))
+    .finally(() => popupWithFormAbout.renderLoading(false, 'Сохранить'))
 }
 
 function handleProfileAvatarSubmit(data) {
-  popupAvatarUpdate.waitingServerAnswer(true, 'Сохранение...')
+  popupAvatarUpdate.renderLoading(true, 'Сохранение...')
   api.updateAvatar(data)
     .then(res => {
       userInfo.updateUserAvatar(data)
       popupAvatarUpdate.close()
+      formAvatarValidate.disableButtonSave();
     })
-    .catch((error) => console.log(error))
-    .finally(() => popupAvatarUpdate.waitingServerAnswer(false, 'Сохранить'))
-  formAvatarValidate.disableButtonSave();
+    .catch((error) => console.log(error, 'CUSTON ERROR'))
+    .finally(() => popupAvatarUpdate.renderLoading(false, 'Сохранить'))
 }
 
 
@@ -180,7 +172,7 @@ const popupAvatarUpdate = new PopupWithForm('.popup_upload-avatar', handleProfil
 popupAvatarUpdate.setEventListeners();
 
 
-document.querySelector('.profile__avatar').addEventListener('click', () => {
+profileAvatar.addEventListener('click', () => {
   popupAvatarUpdate.open()
 })
 
@@ -210,20 +202,8 @@ Promise.all([api.getUserProfile(), api.getInitialCards()])
     userInfo.updateUserAvatar({ avatar: res.avatar })
     myProfileId = res._id
 
-    cardData.forEach(data => {
-      renderCard({
-        place: data.name,
-        link: data.link,
-        likes: data.likes,
-        _id: data._id,
-        myProfileId: myProfileId,
-        ownerId: data.owner._id
-      })
-    })
+    const cardsSection = new Section({ items: cardData, renderer: renderCard }, '.place-grid')
+    cardsSection.renderItems()
   })
-  .catch((error) => console.log(error))
-
-
-
-
+  .catch((error) => console.log(error, 'CUSTON ERROR'))
 

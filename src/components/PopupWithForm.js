@@ -28,10 +28,9 @@ export class PopupWithForm extends Popup {
     this._form.addEventListener('submit', () => {
       this._handleSubmit(this._getInputValues());
     })
-    this.close();
   }
 
-  waitingServerAnswer(isLoading, text) {
+  renderLoading(isLoading, text) { //waitingServerAnswer
     if (isLoading) {
       this._submitButton.textContent = text
     } else {

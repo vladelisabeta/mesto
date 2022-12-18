@@ -5,28 +5,28 @@ export class Api {
   }
 
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+
+
+    return Promise.reject(`Ошибка: ${res.status}`)
+  }
 
   //  это дисент
   getUserProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты профильный лох`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты карточный лох`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
   editProfile(data) {
@@ -38,11 +38,7 @@ export class Api {
         about: data.info
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты полупрофильный лох`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
 
@@ -57,11 +53,7 @@ export class Api {
         _id: data._id
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты не добавил карточку, лох`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
   deleteCard(id) {
@@ -69,11 +61,7 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты не удалил карточку`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
   removeLike(id) {
@@ -81,11 +69,7 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты не дизлайкнул карточку`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
   addLike(id) {
@@ -93,11 +77,7 @@ export class Api {
       method: "PUT",
       headers: this._headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты не лайкнул карточку`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
   updateAvatar(data) {
@@ -108,11 +88,7 @@ export class Api {
         avatar: data.avatar
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else { Promise.reject(`Ошибка: ${res.status} ты без аватарки`) }
-      })
+      .then(res => this._checkResponse(res))
   }
 
 }

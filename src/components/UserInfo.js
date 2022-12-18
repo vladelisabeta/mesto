@@ -22,17 +22,21 @@ export class UserInfo {
   }
 
   setUserInfo(data) {
+    if (data.name && data.info) {
 
-    this._userName.textContent = data.name
-    this._userAbout.textContent = data.info
+      this._userName.textContent = data.name
+      this._userAbout.textContent = data.info
+    }
+
+
+    // this._userName.textContent = data.name
+    // this._userAbout.textContent = data.info
   }
 
   updateUserAvatar(data) {
 
     this._userAvatar.src = data.avatar
   }
-
-
 }
 
 
